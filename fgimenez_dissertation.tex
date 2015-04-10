@@ -1,0 +1,142 @@
+%---------------------------------------------------------------------------------------------------
+% G. David Poznik
+% January, 2015
+% PhD Dissertation Proposal
+% Stanford University, Program in Biomedical Informatics
+%
+%---------------------------------------------------------------------------------------------------
+% Electronic submission:
+% * Set \onlinetrue: removes copyright and signature pages
+% 
+% Actual dissertation: 			[DONE]
+% * Comment out \proposaltrue
+% 	a. removes "proposal" from title page
+% 	b. includes acknowledgments
+% * Comment out proposed work chapter and uncomment discussion chapter.
+%---------------------------------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------------------------------
+% Packages
+
+\documentclass[12pt,twoside]{report}		% double-sided for binding. font size: 10, 11, or 12 pt.
+\usepackage{config/suthesis-2e-poznik}             % Stanford Dissertation .sty file, with my edits
+\usepackage{amsmath}						% mathematical formulas
+\usepackage{amssymb}						% mathematical symbols
+\usepackage{graphicx}						% \includegraphics for eps and pdf graphics
+\usepackage{cite}							% to clean up citations in the main text
+\usepackage[labelfont=bf,labelsep=period]{caption}	% bold figure number in caption
+\usepackage{subcaption}						% for subfigures
+\usepackage{color}							% to color text: {\color{red} text}
+\usepackage[usenames,dvipsnames]{xcolor}	% more flexibility for colors
+\usepackage{amsfonts}						% \mathcal, \mathbb, \mathscr, etc
+\usepackage{amsthm}							% \newtheorem{name}{Printed output}
+\usepackage{amscd}							% rectangular diagrams
+\usepackage{verbatim}						% reproduce every char w/in \begin{verbatim} ... 
+\usepackage{epstopdf}						% convert eps to pdf
+\usepackage[backref]{hyperref}				% hyperlinks; backrefs in bibliography
+\usepackage[nameinlink,noabbrev]{cleveref}  % capitalize at start of sentence
+\usepackage{setspace}						% for line-spacing
+\usepackage{fancyhdr}						% enables fine control over headers and footers
+\usepackage[super]{nth}						% for super-scripting 1st, 2nd, etc.
+\usepackage{courier}    					% sets \ttfamily to courier new
+\usepackage{rotating}						% for rotating figures and captions
+\usepackage{afterpage}						% for placement of rotated figures and captions
+\usepackage{booktabs}						% to make book-quality tables
+\usepackage{bm}								% enables boldface in math mode with \boldsymbol{}
+\usepackage{multirow}						% enables spanning multiple rows in a table
+\usepackage{fixltx2e}						% enables \textsubscript{}
+\usepackage{float}							% enables H to force figure placement here
+%\usepackage{macros}							% .sty file with all my macros
+
+%---------------------------------------------------------------------------------------------------
+% Options. See comment section above for details.
+
+%\proposaltrue								% affects title page, acknowledgements, final chapter
+%\onlinetrue								% electronic submission: remove copyright and signature pages
+
+%---------------------------------------------------------------------------------------------------
+% Includeonlies. To compile a shorter list of .tex files.
+
+%\includeonly{abstract,preface,chapter1-introduction}
+%\includeonly{chapter2-hgdp-intro,chapter2-hgdp-main,chapter2-hgdp-methods,chapter2-hgdp-suppText}
+%\includeonly{chapter3-intro,chapter3-levites,chapter3-hgR,chapter3-iranAshkenazim}
+%\includeonly{chapter4-aDNA,chapter4-clovis,chapter4-kennewick,chapter4-stm}
+%\includeonly{chapter5-largeSamples,chapter5-1000y,chapter5-capture}
+%\includeonly{chapter6-discussion}
+
+%---------------------------------------------------------------------------------------------------
+% Settings
+
+% bibliography style
+\bibliographystyle{plain}					% bibtex style. e.g., plain (sorted), unsrt, plos2009
+\makeatletter								% enables usage of @ in package modification
+\renewcommand{\@biblabel}[1]{\quad#1.}		% remove brackets from numbering in list of references
+\makeatother								% returns @ to normal usage
+\renewcommand*{\backref}[1]{[#1]}			% format back references in bibliography
+
+% hyperlinks
+\definecolor{linkCol}{RGB}{23,118,153}		% yields plos genetics color: 23,98,135
+\hypersetup{
+    colorlinks,								% colors text rather than surrounding it by a box
+    linkcolor={linkCol},					% internal links
+    citecolor={blue!50!black},				% citations: 50% blue, 50% black
+    urlcolor={blue!80!black}				% web links and urls: 80% blue, 20% black
+}
+
+%---------------------------------------------------------------------------------------------------
+% Meta-Data
+
+\title{Fast Adaptive Structured Reporting to Improve Radiological Performance}
+\author{Francisco J. Gimenez}
+\programthesis
+\dept{Biomedical Informatics}
+\principaladviser{Daniel Rubin}
+\firstreader{Ross Shachter}
+\secondreader{Mark Musen}
+
+%---------------------------------------------------------------------------------------------------
+% Start Document
+
+\begin{document}
+\beforepreface						% title, copyright, and signature pages
+
+%---------------------------------------------------------------------------------------------------
+% Prefaces. Each must begin with: \prefacesection{myTitle}.
+
+\include{abstract}
+\include{preface}
+\ifproposal 						% exclude acknowledgements from proposal
+\else \include{acknowledgements} \fi	
+
+%---------------------------------------------------------------------------------------------------
+% Post-Preface Front Matter
+
+{ \hypersetup{hidelinks}			% keep TOC black
+  \contentstablesfigures }			% tables of contents, tables, and figures
+\startmaindoc						% start main body: \cleardoublepage, arabic page 1, headings
+
+%---------------------------------------------------------------------------------------------------
+% Chapters. Each must begin with: \chapter{myChapterTitle}.
+
+\include{text/intro_chapter}
+\include{text/ontology_chapter}
+\include{text/crowd_chapter}
+\include{text/methods_chapter}
+\include{text/results_chapter}
+\include{text/conclusion_chapter}
+
+
+\include{chapter6-proposedWork}			% proposal
+%\include{chapter6-discussion}			% dissertation
+
+%---------------------------------------------------------------------------------------------------
+% Appendices. Each must begin with: \chapter{myAppendixTitle}.
+
+%\appendix
+%\include{appendixFN}
+
+%---------------------------------------------------------------------------------------------------
+% Bibliography and dismount.
+
+\bibliography{}		% full path to .bib (bibtex file)
+\end{document}

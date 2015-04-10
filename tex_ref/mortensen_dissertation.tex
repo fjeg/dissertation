@@ -1,0 +1,127 @@
+%% Helpful Debugging Packages
+\RequirePackage[l2tabu, orthodox]{nag}
+
+%% Format Settings
+\documentclass[12pt]{report}
+% documentclass can take other option such as
+% twoside - for double sided printing
+% openright - if double side  chapters always start on odd pages
+% openany - if double side chapters start on the next page even or odd
+% 12pt can be replaced by 11pt
+
+%% Packages
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+% activate={true,nocompatibility} - activate protrusion and expansion
+% final - enable microtype; use "draft" to disable
+% tracking=true, kerning=true, spacing=true - activate these techniques
+% factor=1100 - add 10% to the protrusion amount (default is 1000)
+% stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
+\SetProtrusion{encoding={*},family={bch},series={*},size={6,7}}
+              {1={ ,750},2={ ,500},3={ ,500},4={ ,500},5={ ,500},
+               6={ ,500},7={ ,600},8={ ,500},9={ ,500},0={ ,500}}
+\SetExtraKerning[unit=space]
+    {encoding={*}, family={bch}, series={*}, size={footnotesize,small,normalsize}}
+    {\textendash={400,400}, % en-dash, add more space around it
+     "28={ ,150}, % left bracket, add space from right
+     "29={150, }, % right bracket, add space from left
+     \textquotedblleft={ ,150}, % left quotation mark, space from right
+     \textquotedblright={150, }} % right quotation mark, space from left
+\SetExtraKerning[unit=space]
+   {encoding={*}, family={qhv}, series={b}, size={large,Large}}
+   {1={-200,-200}, 
+    \textendash={400,400}}
+\SetTracking{encoding={*}, shape=sc}{40}
+\microtypecontext{spacing=nonfrench}
+
+\usepackage{fancyhdr}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{outlines}
+\usepackage{enumitem}
+\setenumerate[1]{label=\Roman*.}
+\setenumerate[2]{label=\Alph*.}
+\setenumerate[3]{label=\roman*.}
+\setenumerate[4]{label=\alph*.}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{xparse}% http://ctan.org/pkg/xparse
+\usepackage{array}
+\usepackage{epsfig}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{colortbl}
+
+%% Stanford Thesis Style is last, so we ensure proper formatting and override anything
+% Online
+\usepackage{config/suthesis-2e-poznik} 
+% Regular
+% \usepackage{suthesis-2e}
+
+%% Personal Macros
+%\usepackage{config/personal-macros}
+
+%% Compilation Selection
+% Hardcode only chapterX  to be processed
+%\includeonly{chapterX}
+% Ask at Runtime
+\def\all{all}
+%\typein [\files]{Enter file names to process, (chapter1,chapter2, ...), or `all' to process all files:}
+% Short-circuit runtime option
+\def\files{all}
+\ifx\files\all \typeout{Including all files.} \else \typeout{Including only \files.} \includeonly{\files} \fi
+
+%% Front Page Info
+%\input{text/title}
+
+%% Main Document
+\begin{document}
+
+%% Title, other beginning stuff
+%protrusion can mess up formatting, here
+\microtypesetup{protrusion=false}
+\beforepreface
+\microtypesetup{protrusion=true}
+
+%% Preface
+%each file should start with \prefacesection{Preface Title}
+\include{text/abstract}
+%\include{text/acknowledgments}
+
+%% Contents, Figures, Tables List
+%protrusion can mess up formatting, here
+\microtypesetup{protrusion=false}
+\contentstablesfigures  
+\microtypesetup{protrusion=true}
+
+\startmaindoc
+%% Thesis Body
+%each file should  start with a \chapter{Chapter Title}
+%\include{text/outline}
+\include{text/intro_chapter}
+\include{text/ontology_chapter}
+\include{text/crowd_chapter}
+\include{text/methods_chapter}
+\include{text/results_chapter}
+\include{text/conclusion_chapter}
+
+%% Optional Appendices
+%\appendix
+%\include{appendix1}
+%\include{appendix2}
+%\include{appendix3}
+
+%% Bibliography
+% bibliography.tex should include either 
+% \bibliographystyle{...}
+% \bibliography{mythesis}
+% or some other way of doing the bibliography
+\include{bib/bibliography}
+
+%% Signature Page
+% Uncomment next line for Physical Printing
+%\signaturepage
+
+\end{document}
+
