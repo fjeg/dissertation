@@ -1,18 +1,9 @@
 %---------------------------------------------------------------------------------------------------
-% G. David Poznik
-% January, 2015
+% Francisco Gimenez
+% April, 2015
 % PhD Dissertation Proposal
 % Stanford University, Program in Biomedical Informatics
 %
-%---------------------------------------------------------------------------------------------------
-% Electronic submission:
-% * Set \onlinetrue: removes copyright and signature pages
-% 
-% Actual dissertation: 			[DONE]
-% * Comment out \proposaltrue
-% 	a. removes "proposal" from title page
-% 	b. includes acknowledgments
-% * Comment out proposed work chapter and uncomment discussion chapter.
 %---------------------------------------------------------------------------------------------------
 
 %---------------------------------------------------------------------------------------------------
@@ -49,7 +40,14 @@
 %\usepackage{macros}							% .sty file with all my macros
 
 %---------------------------------------------------------------------------------------------------
-% Options. See comment section above for details.
+% Electronic submission:
+% * Set \onlinetrue: removes copyright and signature pages
+% 
+% Actual dissertation:
+% * Comment out \proposaltrue
+% 	a. removes "proposal" from title page
+% 	b. includes acknowledgments
+% * Comment out proposed work chapter and uncomment discussion chapter.
 
 %\proposaltrue								% affects title page, acknowledgements, final chapter
 %\onlinetrue								% electronic submission: remove copyright and signature pages
@@ -103,8 +101,8 @@
 %---------------------------------------------------------------------------------------------------
 % Prefaces. Each must begin with: \prefacesection{myTitle}.
 
-\include{abstract}
-\include{preface}
+\include{text/abstract}
+\include{text/preface}
 \ifproposal 						% exclude acknowledgements from proposal
 \else \include{acknowledgements} \fi	
 
@@ -123,11 +121,8 @@
 \include{text/crowd_chapter}
 \include{text/methods_chapter}
 \include{text/results_chapter}
+\include{text/proposed_work}
 \include{text/conclusion_chapter}
-
-
-\include{chapter6-proposedWork}			% proposal
-%\include{chapter6-discussion}			% dissertation
 
 %---------------------------------------------------------------------------------------------------
 % Appendices. Each must begin with: \chapter{myAppendixTitle}.
@@ -138,5 +133,5 @@
 %---------------------------------------------------------------------------------------------------
 % Bibliography and dismount.
 
-\bibliography{}		% full path to .bib (bibtex file)
+\bibliography{bib/bibtex_lib_04-13-2015.bib}		% full path to .bib (bibtex file)
 \end{document}
