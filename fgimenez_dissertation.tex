@@ -49,28 +49,26 @@
 % 	b. includes acknowledgments
 % * Comment out proposed work chapter and uncomment discussion chapter.
 
-%\proposaltrue								% affects title page, acknowledgements, final chapter
+\proposaltrue								% affects title page, acknowledgements, final chapter
 %\onlinetrue								% electronic submission: remove copyright and signature pages
 
 %---------------------------------------------------------------------------------------------------
 % Includeonlies. To compile a shorter list of .tex files.
 
 %\includeonly{abstract,preface,chapter1-introduction}
-%\includeonly{chapter2-hgdp-intro,chapter2-hgdp-main,chapter2-hgdp-methods,chapter2-hgdp-suppText}
-%\includeonly{chapter3-intro,chapter3-levites,chapter3-hgR,chapter3-iranAshkenazim}
-%\includeonly{chapter4-aDNA,chapter4-clovis,chapter4-kennewick,chapter4-stm}
-%\includeonly{chapter5-largeSamples,chapter5-1000y,chapter5-capture}
-%\includeonly{chapter6-discussion}
+
+%---------------------------------------------------------------------------------------------------
+% Bibliography
+
+% bibliography style
+\bibliographystyle{unsrt}					% bibtex style. e.g., plain (sorted), unsrt, plos2009
+%\makeatletter								% enables usage of @ in package modification
+%\renewcommand{\@biblabel}[1]{\quad#1.}		% remove brackets from numbering in list of references
+%\makeatother								% returns @ to normal usage
+%\renewcommand*{\backref}[1]{[#1]}			% format back references in bibliography
 
 %---------------------------------------------------------------------------------------------------
 % Settings
-
-% bibliography style
-\bibliographystyle{plain}					% bibtex style. e.g., plain (sorted), unsrt, plos2009
-\makeatletter								% enables usage of @ in package modification
-\renewcommand{\@biblabel}[1]{\quad#1.}		% remove brackets from numbering in list of references
-\makeatother								% returns @ to normal usage
-\renewcommand*{\backref}[1]{[#1]}			% format back references in bibliography
 
 % hyperlinks
 \definecolor{linkCol}{RGB}{23,118,153}		% yields plos genetics color: 23,98,135
@@ -82,7 +80,7 @@
 }
 
 %---------------------------------------------------------------------------------------------------
-% Meta-Data
+% Title Data
 
 \title{Fast Adaptive Structured Reporting to Improve Radiological Performance}
 \author{Francisco J. Gimenez}
@@ -104,7 +102,7 @@
 \include{text/abstract}
 \include{text/preface}
 \ifproposal 						% exclude acknowledgements from proposal
-\else \include{acknowledgements} \fi	
+\else \include{text/acknowledgements} \fi	
 
 %---------------------------------------------------------------------------------------------------
 % Post-Preface Front Matter
@@ -117,12 +115,8 @@
 % Chapters. Each must begin with: \chapter{myChapterTitle}.
 
 \include{text/intro_chapter}
-\include{text/ontology_chapter}
-\include{text/crowd_chapter}
 \include{text/methods_chapter}
-\include{text/results_chapter}
-\include{text/proposed_work}
-\include{text/conclusion_chapter}
+
 
 %---------------------------------------------------------------------------------------------------
 % Appendices. Each must begin with: \chapter{myAppendixTitle}.
