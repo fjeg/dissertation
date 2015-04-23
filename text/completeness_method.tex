@@ -1,0 +1,42 @@
+Missing descriptors in mammography reports do not necessarily mean that the report does not have all the information to make a correct and justified diagnosis. Conversely, there are cases when most of the descriptors are reported, but the report still reaches an ambiguous diagnosis. Incompleteness of reports needs to be sensitive to the context of the information already given as well as the effect of missing information on the diagnosis. 
+
+Given that the final result of a mammogram is a decision whether to follow-up on patients with mammographic lesions, this decision should be the primary driver of determining whether enough information has been provided in the report. Early approaches to measuring whether medical diagnostic tests were necessary involved calculating thresholds for posterior probabilities that would warrant more testing or treatment \cite{Pauker:1980cg}. Such methods required that the practicing physician provide the posterior probability. The Pathfinder system used a value of information calculation to repeatedly request more information for diagnosis until there was only one possible diagnosis left \cite{Heckerman:1992uq}. This did not provide a flexible framework for stopping if there was more than one possible diagnosis outside of physician judgment. The STOP criteria provide a quantitative algorithm for when to stop requesting information and make a decision, but this is formulated only to measure whether the probability of an event exceeds a certain threshold \cite{Gaag:2011gs}. 
+
+In response to these shortcomings for decision support systems, the same-decision probability (SDP) has been proposed \cite{Choi:2012id}. This is defined to be the probability that a diagnostician will make the same decision they are currently considering given the unobserved information in a system. This metric has a nice intuitive meaning; only collect more information if it will change a decision. The SDP is defined for systems that make binary decisions based upon a posterior probability of an event being above a threshold. Formally, given a system with a decision function D, observed variables O, unobserved variables U, and a decision threshold T the SDP is defined as:
+
+$$
+SDP=EQUATION
+$$
+
+Where I[•] is an indicator function that outputs 1 if true and 0 if false. 
+In the context of mammography, D(•) = diagnosis, O= report data, U = Unobserved descriptors, and T = BI-RADS 2% threshold.
+Though this is a well-defined metric, it is intractable to compute \cite{Chen:2013tw}. The summation requires iterating over all possible combinations of missing data which is an exponentially large search space. Despite this challenge, there are algorithms to approximate it based on statistical bounds on its value \cite{Choi:2012id}. The drawback here is that such bounds can be weak under a variety of non-trivial cases. There is also an exact algorithm that can take advantage of certain Bayesian network structures to compute it in tractable time \cite{Chen:2013tw}, but this method may break down for extreme value thresholds and Bayesian networks that do not have highly independent sets of unobserved nodes.
+Here we propose a new method to compute an approximation of the SDP based on monte-carlo simulations. The difference between our approximation method and previous ones\cite{Choi:2012id} is that they compute and exact value for an approximate bound on the SDP whereas we compute an approximation to the exact value of the SDP. This follows the advice of John Tukey, “It is far better an approximate answer to the right question, which is often vague, than the exact anwer to the wrong questions, which can always be made precise.” \cite{Tukey:1962vw} Moreover, our approximation can be made arbitrarily accurate given more monte-carlo sampling steps.
+For sake of convenience, we compute the complement of the SDP which is simply 1-SDP. This is the probability that our decision will change given new information. We will refer to this value as the incompleteness score. In this context, a lower value of the incompleteness score means the report is more complete.
+
+
+
+
+
+Algorithm 1 Compute incompleteness score in Bayesian network
+Input:
+B: a Bayesian network
+D: a diagnosis node
+T: a decision threshold
+N: an integer number of samples to use
+O: a set of observed nodes
+U: a set of unobserved nodes
+Output: an incompleteness score value
+Main:
+d <== Pr(D=Malignant | O) > T
+s <== 0
+for i = 1:N do
+u <== junction\_tree\_sample(B,U)
+dnew <== Pr(D=Malignant|O,u) > T
+if dnew != d then
+s = s + 1
+end if
+end for
+incompleteness\_score <== s/N
+
+Where join\_tree\_sample is the standard algorithm for sampling from a Bayesian network that has been compiled into a join-tree.

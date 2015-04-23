@@ -2,10 +2,29 @@
 
 \section{Radiology Reporting}
 
+
 \section{Mammography}
+Radiologists presented with mammograms are tasked with two problems: detection and interpretation. Detection is the task of visually inspecting the mammogram and identifying abnormalities. Interpretation is evaluating whether detected abnormalities are suspicious for breast cancer. We will focus on the interpretation problem in this paper.
+
+Formally, the interpretation problem is defined as follows: A radiologist is presented with a lesion in a mammogram, patient history and demographics, and possibly prior mammograms. The radiologist must decide whether this lesion warrants no action or follow-up (either imaging or biopsy) based on their suspicion of malignancy. This suspicion of malignancy is quantified as the BI-RADS assessment category, which is an ordinal value ranging from 1 to 6. An additional assessment category of 0 is used to indicate there is not enough information in the mammogram to make a decision. These assessment categories were designed to have probabilistic interpretations, where each value has a range of posterior probabilities of malignancy as shown in Table 1. A BI-RADS assessment of 1, 2, or 3 indicates the recommendation is no immediate follow-up (a negative assessment). A BI-RADS assessment of 4 or 5 indicates a recommendation for follow-up imaging or biopsy should be considered (a positive assessment). An assessment of 0 should not count as either positive or negative, but the fact that it necessitates immediate follow-up imaging means that it is treated as a positive finding \cite{Barlow:2004cy}. BI-RADS 6 is a non-diagnositc category used to indicate that the images reflect a known cancer diagnosis being evaluated for treatment planning. These assessment categories implicitly mean that any lesion with a posterior probability of greater than 2\% should be considered as a positive finding. Recent work has shown that this 2\% threshold rule is justified via epidemiological risk analysis{Burnside:2012fk}. In addition to providing an assessment, radiologists must provide a report that justifies their decision. This report has a set of categorical descriptors standardized by BI-RADS, which can be interpreted as evidence for their decision.
+
+BI-RADS Assessment	Probability of Malignancy	Description
+0	N/A	Additional Imaging Needed
+1	0\%	No Abnormality
+2	0\%	Benign Finding
+3	< 2\%	Probably Benign Finding
+4	2-95\%	Suspicious Abnormality
+5	> 95\%	Highly Suggestive of Malignancy
+6	100\%	Biopsy Proven
+Table 1: The BI-RADS assessment categories and their probabilistic interpretations.
+
+Though BI-RADS assessments have objective probabilistic underpinnings, mammography interpretation is inherently subjective. Modern practice traditionally does not include quantitative estimates of these probabilities. Rather, radiologists provide the assessment categories based on training and experience. The use of BI-RADS assessment categories allows us to evaluate radiological performance as if radiologists are binary classifiers. We can measure their true positives (TP), false positives (FP), true negatives (TN), and false negatives (FN) as well as all associated statistics (e.g. positive predictive value, sensitivity, specificity). Moreover, the use of categorical descriptors allows us to build joint models of their decision given evidence.
+
+
 
 \section{Liver Imaging}
 
-\section{Medical Decision Support}
+\section{Radiological Decision Support}
+Decision-support systems have been developed to improve upon mammography interpretation and diagnosis \cite{Garg:2005cb, Burnside:2000wl, ElizabethS:2005gc, Rubin:2005jg}, however most of these systems follow the Greek Oracle model of decision-support: they simply give an answer to the diagnostic task rather then assisting the radiologist to improve their own decision \cite{Miller:1990wg, Friedman:2009dx}. Additionally, such systems interrupt the traditional radiological workflow \cite{Morgan:2011ct}. We posit that improving the radiologist’s report during reporting time mitigates both of these issues and is the ideal time to deliver effective decision-support.
 
 \section{Probabilistic Graphical Models}
