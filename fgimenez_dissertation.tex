@@ -37,6 +37,7 @@
 \usepackage{multirow}						% enables spanning multiple rows in a table
 \usepackage{fixltx2e}						% enables \textsubscript{}
 \usepackage{float}							% enables H to force figure placement here
+\usepackage{import}
 %\usepackage{macros}							% .sty file with all my macros
 
 %---------------------------------------------------------------------------------------------------
@@ -114,10 +115,11 @@
 %---------------------------------------------------------------------------------------------------
 % Chapters. Each must begin with: \chapter{myChapterTitle}.
 
-\include{text/intro_chapter}
-\include{text/background_chapter}
-\include{text/fasr}
-\include{text/results}
+\import{text/}{intro_chapter}
+\import{text/}{background_chapter}
+\import{text/}{fasr}
+\import{text/}{evaluation_methods}
+\import{text/}{results}
 
 
 %---------------------------------------------------------------------------------------------------
