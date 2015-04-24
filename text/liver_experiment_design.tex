@@ -1,0 +1,7 @@
+We measured classifier accuracy with leave-one-out cross-validation (LOOCV). 
+
+Receiver operating characteristic (ROC) curves were calculated over the probability of a semantic feature being recorded. The resulting areas under the curves (AUC) were measured to quantify the predictive value of these classifiers.
+
+Thresholds were determined empirically over a range from 0 to 1. These thresholds were then used to calculate the misclassification rate of a classifier for a semantic feature.
+
+All programming was performed in MATLAB. LASSO classification was done using the glmnet package for MATLAB {Friedman:2009wm}.
