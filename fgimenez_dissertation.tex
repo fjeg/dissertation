@@ -37,8 +37,18 @@
 \usepackage{multirow}						% enables spanning multiple rows in a table
 \usepackage{fixltx2e}						% enables \textsubscript{}
 \usepackage{float}							% enables H to force figure placement here
-\usepackage{import}
+\usepackage{import}							% import path resolution
+\usepackage[T1]{fontenc}					% modern font encoding
+\usepackage{lmodern}						% latin modern font
+\usepackage{algorithm}						% algorithm float box
+\usepackage{algpseudocode}					% algorithmicx type setting
 %\usepackage{macros}							% .sty file with all my macros
+
+%---------------------------------------------------------------------------------------------------
+% updates to algorithmic package
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\newcommand*\Let[2]{\State #1 $\gets$ #2}
 
 %---------------------------------------------------------------------------------------------------
 % Electronic submission:
@@ -101,9 +111,11 @@
 % Prefaces. Each must begin with: \prefacesection{myTitle}.
 
 \include{text/abstract}
-\include{text/preface}
+%\include{text/preface}
 \ifproposal 						% exclude acknowledgements from proposal
-\else \include{text/acknowledgements} \fi	
+\else 
+	\include{text/acknowledgements} 
+\fi	
 
 %---------------------------------------------------------------------------------------------------
 % Post-Preface Front Matter

@@ -8,8 +8,25 @@ We trained a Tree-Augmented Naïve Bayes network on 20,950 training cases and me
 \end{figure}
 
 
-In order to verify that the incompleteness score can be used to predict mammographic error, we plotted its histogram and density estimate stratified by radiological predictive categories: true negative (TN), false negative (FN), true positive (TP), and false positive (FP) [Figure 1]. The graphs show that there are a large number of false positive and false negative cases that have non-zero incompleteness scores. Intuitively, this shows that incomplete reports have a higher likelihood of containing errors. The difference between error (FP,FN) and non-error (TP,TN) incompleteness scores was statistically significant (p < 2.2*10-16). 
+In order to verify that the incompleteness score can be used to predict mammographic error, we plotted its histogram and density estimate stratified by radiological predictive categories: true negative (TN), false negative (FN), true positive (TP), and false positive (FP) [figure \ref{fig:incompleteness_score_hist_confmat}]. The graphs show that there are a large number of false positive and false negative cases that have non-zero incompleteness scores. Intuitively, this shows that incomplete reports have a higher likelihood of containing errors. The mean incompleteness score for erroneous cases ($FP \cup FN$) was \textbf{0.0720} while the mean incompleteness score for correct ($TP \cup TN$) cases was \textbf{0.0079}, an order of magnitude smaller. A wilcoxon sign-rank test showed that the difference between error and non-error incompleteness scores was statistically significant ($p < 2.2*10^{-16}$).
 
-An issue with this data is that there are a small number of false negative findings compared to false positive findings. This could skew results since positive findings may contain descriptors more prone to noise in the model. To account for this, we compared false positive to true positive results since both groups would have similar descriptors. The analysis showed that they were still statistically significantly different (p<0.0026).
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{figures/incompleteness_score_hist_confmat}
+\caption{Plots of the histogram and density of incompleteness scores, stratified by radiologist performance on their respective cases. True Negative (TN) findings have the lowest incompleteness scores (indicating they are most complete) while false positive (FP) findings have higher incompleteness scores (indicating less completely reported findings). Joining (TN,TP) and (FP,FN), we can compare cases that were correctly assessed to cases with errors. Note that the false negative density graph has a nearly uniform distribution. This is an artifact due to the small amount of false negatives in the data set that skew density estimation.}
+\label{fig:incompleteness_score_hist_confmat}
+\end{figure}
 
-We then tested how well the incompleteness score could predict error in mammography reading. Figure 2 shows several performance metrics for different cutoffs of the incompleteness score. The maximal accuracy with respect to cutoffs was 0.826 at a cutoff of 0.018. This means that > 1.8\% probability of changing decisions when given new information should warrant describing more observations. The precision associated with this cutoff was 0.713 meaning 71.3\% of cases classified as errors via the incompleteness score with cutoff 0.018 will actually be errors. Finally, we measured the percentage reduction in total mammography error if each error marked for revision was corrected. Using the given cutoff, we saw a potential 21.7\% decrease in total errors.
+
+An issue with this data is that there are a small number of false negative findings compared to false positive findings. This could skew results since positive findings may contain descriptors more prone to noise in the model. To account for this, we compared false positive to true positive results since both groups would have similar descriptors. The analysis showed that they were still statistically significantly different ($p<0.0026$).
+
+\clearpage
+
+We then tested how well the incompleteness score could predict error in mammography reading. Figure \ref{fig:incompleteness_rad_improvement} shows several performance metrics for different cutoffs of the incompleteness score. The maximal accuracy with respect to cutoffs was 0.826 at a cutoff of 0.018. This means that < 1.8\% probability of changing decisions when given new information should warrant describing more observations. The precision associated with this cutoff was 0.713 meaning 71.3\% of cases classified as errors via the incompleteness score with cutoff 0.018 will actually be errors. Finally, we measured the percentage reduction in total mammography error if each error marked for revision was corrected. Using the given cutoff, we saw a potential 21.7\% decrease in total errors.
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{figures/incompleteness_rad_improvement}
+\caption{Improvement in radiological performance for difference incompleteness cutoffs. First row shows the incompleteness score accuracy in predicting radiological errors. Second row shows incompleteness score positive predictive value in predicting error. Third row shows the percent reduction in error if identifying error at the specified cutoff. The red-dotted line shows the cutoff point that maximizes error classification accuracy (first panel).}
+\label{fig:incompleteness_rad_improvement}
+\end{figure}

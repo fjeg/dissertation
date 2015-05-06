@@ -16,7 +16,45 @@ Where:
 
 $H(X)$ ranges from 0 to 1, achieving a maximum when a semantic feature has an equal number of positive and negative observations~\cite{MacKay:2003wc}. To avoid degenerate classification cases, only features with entropy greater than 0.4 were considered for classification, creating a total 30 semantic features per lesion (Table \ref{table:semanticfeaturelist}).
 
-\subimport{}{semantic_feature_table}
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|l|c|}
+		\hline
+		Semantic Feature & Entropy of Observations \\ \hline \hline
+		internal nodules & 0.5116 \\ \hline
+		lobulated margin & 0.5116 \\ \hline
+		heterogeneous enhancement & 0.548 \\ \hline
+		irregular margin & 0.548 \\ \hline
+		irregularly shaped & 0.548 \\ \hline
+		hypervascular & 0.5822 \\ \hline
+		water density & 0.5822 \\ \hline
+		abuts capsule of liver & 0.6451 \\ \hline
+		poorly-defined margin & 0.6451 \\ \hline
+		soft tissue density & 0.6451 \\ \hline
+		centripetal fill-in & 0.6739 \\ \hline
+		homogeneous retention & 0.6739 \\ \hline
+		multiple lesions $>$10 & 0.6739 \\ \hline
+		peripheral discontinuous nodular enhancement & 0.6739 \\ \hline
+		multiple lesions 6-10 & 0.7012 \\ \hline
+		homogeneous fade & 0.727 \\ \hline
+		lobular & 0.8163 \\ \hline
+		multiple lesions 1-5 & 0.8163 \\ \hline
+		round & 0.8163 \\ \hline
+		circumscribed margin & 0.8702 \\ \hline
+		hypodense & 0.8702 \\ \hline
+		homogeneous enhancement & 0.8859 \\ \hline
+		nonenhancing & 0.914 \\ \hline
+		solitary lesion & 0.9484 \\ \hline
+		enhancing & 0.9738 \\ \hline
+		heterogeneous & 0.9738 \\ \hline
+		homogeneous & 0.9804 \\ \hline
+		normal perilesional tissue & 0.9804 \\ \hline
+		ovoid & 0.9971 \\ \hline
+		smooth margin & 0.9971 \\ \hline
+	\end{tabular}
+	\caption{Semantic features with entropy above 0.4}
+	\label{table:semanticfeaturelist}
+\end{table}
 
 \clearpage
 \subsection{Computational Features}
@@ -34,7 +72,35 @@ The pixel data within the segmented liver lesions were processed to quantify con
 \subsubsection{Shape Features}
 19-element feature vector containing: (a) Compactness ~\cite{Duda:1973ul}. (b) Roughness~\cite{Kilday:2002wp}. (c) Local area integral invariant descriptor including the mean and standard deviation for 5 different scales~\cite{Hong:2006ti,Manay:2006un}. (d) Radial distance signatures including mean and standard deviation~\cite{MRangayyan:2005td}.
 
-\subimport{}{computational_feature_table}
+\begin{table}
+	\centering
+	\begin{tabular}{|l|c|}
+		\hline
+		Computational Feature Group Description & Dimension \\ \hline \hline
+		\textbf{Contrast} & \textbf{2} \\ \hline
+		\hspace{2pt} Proportion of pixels with intensity larger than 1100 & 1 \\ \hline
+		\hspace{2pt} Difference of means & 1 \\ \hline
+		\textbf{Texture} & \textbf{349} \\ \hline
+		\hspace{2pt} Histogram & 9 \\ \hline
+		\hspace{2pt} Histogram - Peak Position & 1 \\ \hline
+		\hspace{2pt} Histogram - Entropy & 1 \\ \hline
+		\hspace{2pt} Histogram - Haar & 1 \\ \hline
+		\hspace{2pt} Histogram - Daubechies & 324 \\ \hline
+		\hspace{2pt} Variance & 1 \\ \hline
+		\hspace{2pt} Gabor & 12 \\ \hline
+		\textbf{Edge} & \textbf{61} \\ \hline
+		\hspace{2pt} Edge Sharpness & 60 \\ \hline
+		\hspace{2pt} Histogram on Edge & 1 \\ \hline
+		\textbf{Shape} & \textbf{19} \\ \hline
+		\hspace{2pt} Compactness & 1 \\ \hline
+		\hspace{2pt} Roughness & 1\\ \hline
+		\hspace{2pt} Local Area Integral Invariant & 15\\ \hline
+		\hspace{2pt} Radial Distance Signature & 2\\ \hline \hline
+		\textbf{All Features} & \textbf{431} \\ \hline
+	\end{tabular}
+	\caption{Computationally-derived features and their dimensions}
+	\label{table:compfeaturelist}
+\end{table}
 
 \subsection{Classification}
 Logistic regression was used to calculate the probability of a computational feature vector representing a positive or negative semantic feature. In order to mitigate the potential for over-fitting due to a large number of predictors (431 computational features) compared to data points (79 lesions), we also used L1-regularization \cite{Tibshirani:1996wb} to weight features given sparsity in the computational feature set.
