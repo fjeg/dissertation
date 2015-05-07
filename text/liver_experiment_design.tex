@@ -1,10 +1,8 @@
+\subsection{Liver data set}
 With IRB approval, we obtained 79 de-identified CT images of liver lesions in the portal venous phase, including eight types of lesion diagnoses: metastasis, hemangioma (abnormal buildup of blood vessels in the liver), hepatocellular carcinoma, focal nodular hyperplasia (unknown cause), abscess (inflammation), laceration (injury or tear), fat deposition and cyst. For the initial development of image processing algorithms, we chose to focus on the most commonly used phase of imaging, the portal venous phase. Later studies will incorporate unenhanced, arterial, and delayed-phase images, which are important in the diagnosis of many liver lesions. For each scan, the axial slice with the largest lesion area was selected for analysis. A radiologist drew and recorded a Region of Interest (ROI) around the lesion on these images using the freely available OsiriX workstation \cite{Armato:2007ks,Rosset:2004kk}.
 
+\subsection{Classification evaluation}
 
-We measured classifier accuracy with leave-one-out cross-validation (LOOCV). 
-
-Receiver operating characteristic (ROC) curves were calculated over the probability of a semantic feature being recorded. The resulting areas under the curves (AUC) were measured to quantify the predictive value of these classifiers.
-
-Thresholds were determined empirically over a range from 0 to 1. These thresholds were then used to calculate the misclassification rate of a classifier for a semantic feature.
+We simultaneously performed model selection and assessment on the liver data set using nested leave-one-out cross-validation (LOOCV). The inner-loop of LOOCV was run to select the regularization parameter $\lambda$ and the classification threshold $t$. The outer-loop of LOOCV was used to estimate the posterior probability of a semantic feature's presence given the computational features. Receiver operating characteristic (ROC) curves were calculated using these probabilities. The resulting areas under the curves (AUC) were measured to quantify the predictive value of these classifiers. Finally we measured the misclassification rate using the optimal lambda and classification threshold.
 
 All programming was performed in MATLAB. LASSO classification was done using the glmnet package for MATLAB \cite{Friedman:2009wm}.

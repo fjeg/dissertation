@@ -1,6 +1,15 @@
-We trained a Tree-Augmented Na\"{i}ve Bayes network on 20,950 training cases and measured the incompleteness score on 3,695 test cases, results are shown in figure \ref{fig:incompleteness_score_hist_all}. The resulting incompleteness scores were heavily right-skewed distributions. 83\% of the incompleteness scores were equal to zero, meaning no new information would have changed the follow-up decision. Hence, both the median and mode incompleteness scores were zero. The mean incompleteness score was 0.021.
+We trained a Tree-Augmented Na\"{i}ve Bayes network on 20,950 training cases [figure \ref{fig:mass_net}] and measured the incompleteness score on 3,695 test cases, results are shown in figure \ref{fig:incompleteness_score_hist_all}. The resulting incompleteness scores were heavily right-skewed distributions. 83\% of the incompleteness scores were equal to zero, meaning no new information would have changed the follow-up decision. Hence, both the median and mode incompleteness scores were zero. The mean incompleteness score was 0.021.
 
-\begin{figure}[h!]
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{mass_net.png}
+	\caption{The learned TAN model linking descriptors to malignancy}
+	\label{fig:mass_net}
+\end{figure}
+
+
+\clearpage
+\begin{figure}
 \centering
 \includegraphics[width=\linewidth]{incompleteness_score_hist_all.png}
 \caption{Histogram of all incompleteness scores in the test data set}
@@ -8,6 +17,7 @@ We trained a Tree-Augmented Na\"{i}ve Bayes network on 20,950 training cases and
 \end{figure}
 
 
+\clearpage
 In order to verify that the incompleteness score can be used to predict mammographic error, we plotted its histogram and density estimate stratified by radiological predictive categories: true negative (TN), false negative (FN), true positive (TP), and false positive (FP) [figure \ref{fig:incompleteness_score_hist_confmat}]. The graphs show that there are a large number of false positive and false negative cases that have non-zero incompleteness scores. Intuitively, this shows that incomplete reports have a higher likelihood of containing errors. The mean incompleteness score for erroneous cases ($FP \cup FN$) was \textbf{0.0720} while the mean incompleteness score for correct ($TP \cup TN$) cases was \textbf{0.0079}, an order of magnitude smaller. A wilcoxon sign-rank test showed that the difference between error and non-error incompleteness scores was statistically significant ($p < 2.2*10^{-16}$).
 
 \begin{figure}
