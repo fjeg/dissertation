@@ -1,8 +1,8 @@
-We trained a Tree-Augmented Naïve Bayes network on 20,950 training cases and measured the incompleteness score on 3,695 test cases, results are shown in figure \ref{fig:incompleteness_score_hist_all}. The resulting incompleteness scores were heavily right-skewed distributions. 83\% of the incompleteness scores were equal to zero, meaning no new information would have changed the follow-up decision. Hence, both the median and mode incompleteness scores were zero. The mean incompleteness score was 0.021.
+We trained a Tree-Augmented Na\"{i}ve Bayes network on 20,950 training cases and measured the incompleteness score on 3,695 test cases, results are shown in figure \ref{fig:incompleteness_score_hist_all}. The resulting incompleteness scores were heavily right-skewed distributions. 83\% of the incompleteness scores were equal to zero, meaning no new information would have changed the follow-up decision. Hence, both the median and mode incompleteness scores were zero. The mean incompleteness score was 0.021.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\linewidth]{figures/incompleteness_score_hist_all}
+\includegraphics[width=\linewidth]{incompleteness_score_hist_all.png}
 \caption{Histogram of all incompleteness scores in the test data set}
 \label{fig:incompleteness_score_hist_all}
 \end{figure}
@@ -12,8 +12,8 @@ In order to verify that the incompleteness score can be used to predict mammogra
 
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{figures/incompleteness_score_hist_confmat}
-\caption{Plots of the histogram and density of incompleteness scores, stratified by radiologist performance on their respective cases. True Negative (TN) findings have the lowest incompleteness scores (indicating they are most complete) while false positive (FP) findings have higher incompleteness scores (indicating less completely reported findings). Joining (TN,TP) and (FP,FN), we can compare cases that were correctly assessed to cases with errors. Note that the false negative density graph has a nearly uniform distribution. This is an artifact due to the small amount of false negatives in the data set that skew density estimation.}
+\includegraphics[width=\linewidth]{incompleteness_score_hist_confmat.png}
+\caption[Incompleteness scores stratified by confusion matrix]{Plots of the histogram and density of incompleteness scores, stratified by radiologist performance on their respective cases. True Negative (TN) findings have the lowest incompleteness scores (indicating they are most complete) while false positive (FP) findings have higher incompleteness scores (indicating less completely reported findings). Joining (TN,TP) and (FP,FN), we can compare cases that were correctly assessed to cases with errors. Note that the false negative density graph has a nearly uniform distribution. This is an artifact due to the small amount of false negatives in the data set that skew density estimation.}
 \label{fig:incompleteness_score_hist_confmat}
 \end{figure}
 
@@ -26,7 +26,7 @@ We then tested how well the incompleteness score could predict error in mammogra
 
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth]{figures/incompleteness_rad_improvement}
-\caption{Improvement in radiological performance for difference incompleteness cutoffs. First row shows the incompleteness score accuracy in predicting radiological errors. Second row shows incompleteness score positive predictive value in predicting error. Third row shows the percent reduction in error if identifying error at the specified cutoff. The red-dotted line shows the cutoff point that maximizes error classification accuracy (first panel).}
+\includegraphics[width=\linewidth]{incompleteness_rad_improvement.png}
+\caption[Radiological improvement with incompleteness scores]{Improvement in radiological performance for difference incompleteness cutoffs. First row shows the incompleteness score accuracy in predicting radiological errors. Second row shows incompleteness score positive predictive value in predicting error. Third row shows the percent reduction in error if identifying error at the specified cutoff. The red-dotted line shows the cutoff point that maximizes error classification accuracy (first panel).}
 \label{fig:incompleteness_rad_improvement}
 \end{figure}

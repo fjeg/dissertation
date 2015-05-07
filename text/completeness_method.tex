@@ -6,9 +6,10 @@ Given that the final result of a mammogram is a decision whether to follow-up on
 \subsection{Same Decision Probability}
 In response to these shortcomings for decision support systems, the same-decision probability (SDP) has been proposed \cite{Choi:2012id}. This is defined to be the probability that a diagnostician will make the same decision they are currently considering given the unobserved information in a system. This metric has a nice intuitive meaning; only collect more information if it will change a decision. The SDP is defined for systems that make binary decisions based upon a posterior probability of an event being above a threshold. Formally, given a system with a decision function D, observed variables O, unobserved variables U, and a decision threshold T the SDP is defined as:
 
-{\huge\[
+\begin{equation}
+\Large
 SDP = \sum_{u \in U}\mathbb{I}\left[D(\mathbf{O};T) = D(\mathbf{u},\mathbf{O};T)\right]Pr(\mathbf{u}|\mathbf{O})
-\]}
+\end{equation}
 
 Where $\mathbb{I}[\cdotp]$ is an indicator function that outputs 1 if true and 0 if false. 
 In the context of mammography, $D(\cdotp)$ = diagnosis, $\mathbf{O}$ = report data, $\mathbf{U}$ = Unobserved descriptors, and $T$ = BI-RADS 2\% threshold.
