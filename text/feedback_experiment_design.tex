@@ -1,0 +1,12 @@
+\subsection{Feedback Framework}
+The overall evaluation method is to start with zero features and progressively add them one at a time. Each time a new feature is added, we calculate the prediction accuracy across all cases. We can then compare number of features requested to average classification accuracy.
+
+This framework evaluation requires all the features be observed beforehand. Our liver lesion database has full observations for all cases, but the mammography report database does not. For the mammography evaluation, we used the generative model to generate 10,000 cases for feedback evaluation.
+
+Every (selection,stop) criteria pair will have two output values: 1) classification accuracy and 2) number of features selected. Generally there will be a trade-off between these two values. We will compare the classification accuracies with a McNemare test \cite{Stock:2014tn} and the counts using pairwise paired t-tests.
+
+\subsection{Liver CT}
+We used the previously described liver lesion database to build a Na\"{i}ve Bayes classifier to predict lesion diagnosis from radiologist-derived observations. We implemented Mutual Information selection criteria without stopping criteria and compared it to random feedback as a baseline measure.
+
+\subsection{Mammography}
+We used our previously described mammography database to learn a tree-augmented Na\"{i}ve Bayes classifier to predict malignancy. We then used 10,000 generated mammography reports to implement Mutual Information for comparison with random feedback.

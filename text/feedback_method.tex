@@ -1,0 +1,7 @@
+\subsection{Selection Criteria}
+We compare several different selection criteria across both liver and mammography domains. These previous methods have been described to request information in expensive data collection scenarios and all exhibit interesting theoretical properties. The methods include \emph{Mutual Information}, \emph{Expected Entropy Minimization}, \emph{Posterior Variance Reduction}, \emph{Reduction of Kullbacko-Liebler Divergence} and a baseline of \emph{Random Request}.
+
+\subsection{Stop Criteria}
+Stopping criteria is vitally important since reduction of requested features is the entire goal of our feedback framework. A perfect stopping criteria would be one that stops requesting information when maximum classification accuracy is reached. Of course, such criteria would require knowing the ground-truth state of prediction, and thus is impossible. Instead, pragmatic stopping criteria is highly correlated with accuracy of diagnosis. In our studies we propose using \emph{Incompleteness Score}, \emph{Cross Entropy Loss}, \emph{No Mutual Information}, and a baseline of \emph{All Features}. 
+
+All of these proposed stop criteria calculate a score about the state of knowledge in the system. This score is then compared to a stop threshold when new information is no longer requested.

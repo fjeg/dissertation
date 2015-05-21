@@ -46,9 +46,9 @@
 
 %---------------------------------------------------------------------------------------------------
 % updates to algorithmic package
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
-\newcommand*\Let[2]{\State #1 $\gets$ #2}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  % \require = INPUT:
+\renewcommand{\algorithmicensure}{\textbf{Output:}}  % \ensure = OUTPUT:
+\newcommand*\Let[2]{\State #1 $\gets$ #2}  %\LET{a}{b} = a \gets b
 
 %---------------------------------------------------------------------------------------------------
 % Specify my figures folder
@@ -66,7 +66,7 @@
 % * Comment out proposed work chapter and uncomment discussion chapter.
 
 \proposaltrue								% affects title page, acknowledgements, final chapter
-%\onlinetrue								% electronic submission: remove copyright and signature pages
+\onlinetrue								% electronic submission: remove copyright and signature pages
 
 %---------------------------------------------------------------------------------------------------
 % Includeonlies. To compile a shorter list of .tex files.
@@ -153,5 +153,5 @@
 %---------------------------------------------------------------------------------------------------
 % Bibliography and dismount.
 
-\bibliography{bib/bibtex_lib_04-13-2015.bib}		% full path to .bib (bibtex file)
+\bibliography{bib/bibtex_lib_05-20-2015.bib}		% full path to .bib (bibtex file)
 \end{document}
