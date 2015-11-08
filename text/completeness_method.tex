@@ -1,3 +1,14 @@
+I present a method to measure how complete a radiology report is based on the following principle:
+
+\begin{quote}
+\begin{center}
+		\emph{Completeness is the state of knowledge such that no new evidence would change the current decision.}
+\end{center}
+\end{quote}
+
+
+In the spirit of the adage ``you cannot improve what you don't measure,'' I define a quantitative method to measure how complete a radiology report is based on decision theory. I then create an algorithm for computing this score in real-time.
+
 \subsection{Same Decision Probability}
 In response to these shortcomings for decision support systems, the same-decision probability (SDP) has been proposed \cite{Choi:2012id}. This is defined to be the probability that a diagnostician will make the same decision they are currently considering given the unobserved information in a system. This metric has a nice intuitive meaning; only collect more information if it will change a decision. The SDP is defined for systems that make binary decisions based upon a posterior probability of an event being above a threshold. Formally, given a system with a decision function D, observed variables O, unobserved variables U, and a decision threshold T the SDP is defined as:
 
@@ -12,9 +23,9 @@ In the context of mammography, $D(\cdotp)$ = diagnosis, $\mathbf{O}$ = report da
 Though this is a well-defined metric, it is intractable to compute \cite{Chen:2013tw}. The summation requires iterating over all possible combinations of missing data which is an exponentially large search space. Despite this challenge, there are algorithms to approximate it based on statistical bounds on its value \cite{Choi:2012id}. The drawback here is that such bounds can be weak under a variety of non-trivial cases. There is also an exact algorithm that can take advantage of certain Bayesian network structures to compute it in tractable time \cite{Chen:2013tw}, but this method may break down for extreme value thresholds and Bayesian networks that do not have highly independent sets of unobserved nodes.
 
 \subsection{Incompleteness Score}
-Here we propose a new method to compute an approximation of the SDP based on monte-carlo simulations \ref{algorithm:incompleteness}. The difference between our approximation method and previous ones\cite{Choi:2012id} is that they compute and exact value for an approximate bound on the SDP whereas we compute an approximation to the exact value of the SDP. This follows the advice of John Tukey, ``It is far better an approximate answer to the right question, which is often vague, than the exact answer to the wrong questions, which can always be made precise.'' \cite{Tukey:1962vw} Moreover, our approximation can be made arbitrarily accurate given more monte-carlo sampling steps. This is only possible due to the use of junction tree sampling which allows us to directly sample from the posterior distribution of malignancy given observations.
+I propose a new method to compute an approximation of the SDP based on monte-carlo simulations \ref{algorithm:incompleteness}. The difference between my approximation method and previous one by \citeA{Choi:2012id} is that they compute an exact value for an approximate bound on the SDP whereas I compute an approximation to the exact value of the SDP. This follows the advice of John Tukey, ``It is far better an approximate answer to the right question, which is often vague, than the exact answer to the wrong questions, which can always be made precise.'' \cite{Tukey:1962vw} Moreover, my approximation can be made arbitrarily accurate given more monte-carlo sampling steps. This is only possible due to the use of junction tree sampling which allows for direct sampling from the posterior distribution of malignancy given observations.
 
-For sake of convenience, we compute the complement of the SDP which is simply 1-SDP. This is the probability that our decision will change given new information. We will refer to this value as the incompleteness score. In this context, a lower value of the incompleteness score means the report is more complete.
+For sake of convenience, I compute the complement of the SDP which is simply 1-SDP. This is the probability that our decision will change given new information. I will refer to this value as the incompleteness score. In this context, a lower value of the incompleteness score means the report is more complete.
 
 
 \begin{algorithm}[h]

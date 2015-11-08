@@ -1,0 +1,21 @@
+--Abstract should contain substantive amount of results and conclusions
+--Change everything to I, My and past tense
+
+--Introduction: Should be a complete summary of your work including background, problem, your aims, solution/method (including an intuition of methods), key results, contributions, and a guide to the reader for the rest of the chapters.
+Each of these should be called out in the ToC. Also, I think you should explain the structure of the 3 main chapters in this guide since each chapter almost stands on its own.
+
+--Background: Spice up the title -- Radiology and Medicine? Go into basic medicine before detailing the need for imaging and then the problems with imaging. 
+
+Also, the literature review should include basic medicine, the imaging literature, the challenges, existing approaches, components/research that motivated your work and how it contributed.
+I wonder if there's a chapter on the background of methods stuff
+Change to APA, mark likes seeing the author names and years
+
+
+--Chapter 3-5: I wonder whether you could integrate the "^[a-zA-Z ]+:" into the chapter titles. True for all of your headings. 
+
+--Basic structure comments:
+Each chapter should have a summary that ends with a transition to the next chapter
+Each chapter should have an introductory paragraph or two that occurs before any section and that: 1) introduces things to the reader and 2) guides them through the reamining sections
+There should be text after every heading, no matter what, even if a subheading immediately follows.
+discussions should do more than just describe the results. They should "suggest" things, and provide "opportunities". Although the broader implications of a particular result should be saved for the final chapter
+almost every figure and table should have a caption/legend
