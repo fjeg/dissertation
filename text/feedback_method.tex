@@ -1,28 +1,36 @@
 We define our framework for providing feedback to radiologists via a decision-support system. Then we propose our experiment to evaluate this system on a synthetic data set generated from a database of mammography reports. Finally, we implement many different kinds of feedback systems and describe how we evaluate their performance.
 
-\subsection{Feedback Framework}
-Our framework has two components for a feedback system: stopping criteria and selection criteria. The stopping criterion is a rule to determine if new evidence needs to be collected for input to the decision-support system. Should new evidence be required, the selection criterion is used to choose which piece of unobserved evidence should be requested of the radiologist. This two-stage process repeats until the stopping criterion is reached or the radiologist has observed all possible evidence. Note that while the outcomes of the selection and stop criteria greatly affect the other, they are decoupled and do not functionally rely upon each other. 
-
 \subsection{Experiment Design}
-\textcolor{red}{We designed an evaluation system to measure how well a feedback system works on a set of simulated mammography reports. 
-The feedback evaluation system takes as input a decision-support system with no evidence, a feedback system (as described above), and a ground truth structured report that includes state of malignancy. The feedback system then must repeatedly request evidence to input into the decision-support system until it reaches some stopping rule and returns the diagnosis. We then compare the returned diagnosis to the ground-truth state of malignancy.
-on a database of 
-who initially start with no observations. 
-The overall evaluation method is to start with zero features and progressively add them one at a time. Each time a new feature is added, we calculate the prediction accuracy across all cases. We can then compare number of features requested to average classification accuracy.
-This framework evaluation requires all the features be observed beforehand. Our liver lesion database has full observations for all cases, but the mammography report database does not. For the mammography evaluation, we used the generative model to generate 10,000 cases for feedback evaluation.
-Every (selection,stop) criteria pair will have two output values: 1) classification accuracy and 2) number of features selected. Generally there will be a trade-off between these two values. }
+We propose a novel way to evaluate feedback frameworks by measuring the number of features requested as well as binary classification performance of resulting diagnosis.
+
+\subsubsection{Evaluation Process}
+We evaluate the feedback framework by using it to request observations of unseen mammography reports until it reaches a stopping criteria. The mammography reports initially start empty; they do not contain any descriptors. The framework will progressively request observations, and the evaluation system fills in the ground truth value for the requested observation. When the feedback framework reaches its stopping criteria, we return the diagnosis by the decision-support system. We then evaluate the number of features requested, accuracy, sensitivity, and specificity.
+
+\subsubsection{Data Set}
+Traditional mammography practice does not allow for radiologists to provide observations about all possible descriptors in a mass finding. This makes it impossible for a feedback system to obtain ground truth about a descriptor that is missing from a report it is analyzing. Instead, we created a data set of 10,000 simulated structured mammography reports for evaluation, 9751 Benign, 249 Malignant. Evaluation on a simulated data set creates a ground truth for feedback as all descriptors are ``observed'' upon generation. This allows the feedback framework to request the ground truth of any descriptor in a case. We simulated the reports using forward sampling in the diagnostic Bayesian network model (described below) \cite{Koller:2009wk}.
+
+\subsection{Feedback Framework}
+Our feedback framework optimizes feature selection in a pre-existing decision support model. It does so by providing an interface with two components: stopping criteria and selection criteria. The stopping criterion is a rule to determine if new evidence needs to be collected for input to the decision-support system. Should new evidence be required, the selection criterion is used to choose which piece of unobserved evidence should be requested of the radiologist. This two-stage process repeats until the stopping criterion is reached or the radiologist has observed all possible evidence. Note that while the outcomes of the selection and stop criteria greatly affect the other, they are decoupled and do not functionally rely upon each other.
+
+\subsubsection{Bayesian Network Model}
+Our feedback framework requires a model linking radiological descriptors to malignancy of masses identified in a mammogram. We framed this as a binary classification task with the constraints that the model be probabilistic, generative, and allow classification with missing data. The model needs to be probabilistic and generative to allow us to simulate descriptors and quantify their expected effect on diagnosis. It needs to allow for missing data since most radiological reports do not contain all possible descriptors in the domain of the model. Bayesian networks satisfy these requirements and have shown strong performance in computer-aided diagnosis of mammograms \cite{Burnside:2000wl, ElizabethS:2005gc, Rubin:2005jg, Koller:2009wk, Burnside:2009br}. 
+For our work, we used the model developed by Gimenez et. al. \cite{Gimenez:2014tr} to predict malignancy of breast masses. To review, they use a database 24,645 structured reports of mammographic masses to train a Bayesian network model. They learn the network structure using the Tree-Augmented Na\"{i}ve Bayes (TAN) algorithm and the model parameters using gradient descent. All model learning and classification was done in Norsys Netica 5.14 \cite{Norsys:1998vl}.
 
 
-\subsection{Selection Criteria}
-Selection criteria is the rule to select the next piece of evidence for the radiologist to observe and record. Formally, it takes as input the current state of the decision-support system and outputs one of the unobserved descriptors. A well-designed selection rule will reach the stopping conditions in the fewest requests possible while still maintaining classification accuracy comparable to using all possible information. In this study we evaluate three different selection rules: Random, Maximize Mutual Information, and Optimal Cross-Entropy Minimization.
+\subsubsection{Selection Criteria}
+Selection criteria is the rule to select the next piece of evidence for the radiologist to observe and record. Formally, it takes as input the current state of the decision-support system and outputs one of the unobserved descriptors. A well-designed selection rule will reach the stopping conditions in the fewest requests possible while still maintaining classification accuracy comparable to using all possible information. In this study we evaluate three different selection rules: Random, Maximize Mutual Information, and Optimal Cross-Entropy Minimization. \\
 
-\subsubsection{Random Selection}
+\emph{Random Selection}
+This criterion simply selects the next piece of unobserved evidence to request uniformly at random. We use this purposefully poor methodology to establish a sensible lower bound on performance. We formally define it as:
+ 
 \begin{equation}
 Select_{random}(U) = UniformSelection(U)
 \end{equation}
-This criterion simply selects the next piece of unobserved evidence to request uniformly at random. We use this naïve methodology to establish a sensible lower bound on performance. 
 
-\subsubsection{Maximize Mutual Information}
+
+\emph{Maximize Mutual Information}
+This criterion selects the unobserved descriptor that has the highest mutual information with the diagnosis. Mutual information, also sometimes referred to as information gain, has many possible interpretations \cite{Gray:2011hl}. By definition, it selects evidence that minimizes the Kullback-Liebler divergence of the joint probability of diagnosis with evidence and the distribution of their individual products. The divergence is minimized when diagnosis and evidence are independent of each other, and it is maximized when they are the same. Hence it measures the dependence of the diagnostic variable on the evidence. Viewed another way, it measures the expected reduction in entropy of the diagnostic probability when new evidence is introduced. Entropy is a common measure for diagnostic uncertainty, and thus this measure increases certainty in our diagnosis which is an attractive heuristic for requesting evidence \cite{MacKay:2003wc}. We formally define it as:
+
 \begin{align*}
 Select_{mi}(D, U) &= \argmax_{i} I(D; U_i) \\
 &= \argmax_{i} H(D)-H(D|U_i) \\
@@ -30,24 +38,26 @@ Select_{mi}(D, U) &= \argmax_{i} I(D; U_i) \\
 &= \argmax_{i} \sum_{d \in D} \sum_{u \in U_i} p(d,u) \log{ \left(\frac{p(d,u)}{p(d)\,p(u)}\right)}
 \end{align*}
 
-This criterion selects the unobserved descriptor that has the highest mutual information with the diagnosis. Mutual information, also sometimes referred to as information gain, has many possible interpretations \cite{Gray:2011hl}. By definition, it selects evidence that minimizes the Kullback-Liebler divergence of the joint probability of diagnosis with evidence and the distribution of their individual products. The divergence is minimized when diagnosis and evidence are independent of each other, and it is maximized when they are the same. Hence it measures the dependence of the diagnostic variable on the evidence. Viewed another way, it measures the expected reduction in entropy of the diagnostic probability when new evidence is introduced. Entropy is a common measure for diagnostic uncertainty, and thus this measure increases certainty in our diagnosis which is an attractive heuristic for requesting evidence \cite{MacKay:2003wc}.
 
 
 
-\subsubsection{Optimal Cross-Entropy Minimization}
+\emph{Optimal Cross-Entropy Minimization}
+This criterion selects evidence that directly minimizes cross-entropy loss between the diagnosis (encoded as 0 or 1) and the posterior probability of malignancy. In other words, it cheats and selects the next piece of evidence that will push the posterior probability furthest in the correct direction. Such a feedback criteria is impossible to use in real-world scenarios, but offers a sensible upper bound on selection performance. We formally define it as:
 
 \begin{equation}
 Select_{optimal}(D, U) = \argmin_{i} \left|D-P(D | U_i)\right|
 \end{equation}
 
-This criterion selects evidence that directly minimizes cross-entropy loss between the diagnosis (encoded as 0 or 1) and the posterior probability of malignancy. In other words, it cheats and selects the next piece of evidence that will push the posterior probability furthest in the correct direction. Such a feedback criteria is impossible to use in real-world scenarios, but offers a sensible upper bound on selection performance.
 
-\subsection{Stop Criteria}
+
+\subsubsection{Stop Criteria}
 We define stopping criteria to be a binary function that takes as input the state of the decision-support system and outputs whether the system should stop requesting more information. When the stop criteria returns true, the feedback system returns the current output from the decision-support system. If the stop criteria returns false, the feedback system requests more information via the selection criteria (described above). 
 
 Stop criteria that always returns true is equivalent to a radiologist getting decision-support upon completion of their report without any feedback. Stop criteria that always returns false is akin to requesting all possible information from the radiologist. Perfect stop criteria will return true as soon as the decision-support system predicts the correct diagnosis. Of course, such criteria are impossible to define without already knowing the true diagnosis. Instead, we create rules that are indicative or correlated with the decision-support system outputting the correct decision with partial evidence. In this study we focus on two stopping rules: thresholded classifier entropy and thresholded completeness score.
 
-\subsubsection{Classifier Entropy}
+
+\emph{Classifier Entropy}
+This criterion returns true when the entropy of the classifier is below a threshold $t$. Informally, it is designed to stop when the classifier has achieved enough certainty about its prediction \cite{MacKay:2003wc}. Entropy is denoted H(p) where p is the classifier's estimated posterior probability of malignancy. The equation is a symmetric concave function with domain and range between  0 and 1 [Equation 1]. It is maximized at H(0.5)=1 and minimized at H(1)=H(0)=0. A classifier outputting extreme posterior probabilities implies more certainty about the diagnosis. Conversely, a classifier that estimates equal probability for either diagnosis is uncertain. From a decision theoretic standpoint, entropy stopping is equivalent to value of information with a diagonal cost matrix [CITE PATHFINDER]. We formally define it as:
 
 \begin{align}
 Stop_{Entropy}(p,t) =
@@ -63,22 +73,27 @@ Where:
 H(p) = -p\log_2(p) - (1-p)\log_2(1-p)
 \end{align}
 
-This criterion returns true when the entropy of the classifier is below a threshold $t$. Informally, it is designed to stop when the classifier has achieved enough certainty about its prediction \cite{MacKay:2003wc}. Entropy is denoted H(p) where p is the classifier's estimated posterior probability of malignancy. The equation is a symmetric concave function with domain and range between  0 and 1 [Equation 1]. It is maximized at H(0.5)=1 and minimized at H(1)=H(0)=0. A classifier outputting extreme posterior probabilities implies more certainty about the diagnosis. Conversely, a classifier that estimates equal probability for either diagnosis is uncertain. From a decision theoretic standpoint, entropy stopping is equivalent to value of information with a diagonal cost matrix [CITE PATHFINDER].
 
-\subsubsection{Thresholded Completeness Score}
-$$
-Completeness = 􏰀 I[D(O;T) = D(u,O;T)]Pr(u|O)] [LATEX]u∈U 
-$$
+\emph{Thresholded Completeness Score}
+This criterion returns true when the completeness score is below threshold t. The completeness score is defined to be the probability that the current diagnosis would change if missing information were introduced into the decision-support system \cite{Gimenez:2014tr}. This score is computationally intractable to compute in closed form for our decision-support model. Instead we adopt the previously described Monte-Carlo estimation algorithm with 5,000 samples \cite{Gimenez:2014tr}. We formally define it as:
 
-This criterion returns true when the completeness score is below threshold t. The completeness score is defined to be the probability that the current diagnosis would change if missing information were introduced into the decision-support system \cite{Gimenez:2014tr}. This score is computationally intractable to compute in closed form for our decision-support model. Instead we adopt the previously described Monte-Carlo estimation algorithm with 5,000 samples \cite{Gimenez:2014tr}. 
+\begin{align}
+Stop_{Completeness}(t) =
+\begin{cases} 
+true & Completeness \leq t \\
+false & otherwise
+\end{cases}
+\end{align}
 
-\subsection{Bayesian Network Model}
-Our feedback framework requires a model linking radiological descriptors to malignancy of masses identified in a mammogram. We framed this as a binary classification task with the constraints that the model be probabilistic, generative, and allow classification with missing data. The model needs to be probabilistic and generative to allow us to simulate descriptors and quantify their expected effect on diagnosis. It needs to allow for missing data since most radiological reports do not contain all possible descriptors in the domain of the model. Bayesian networks satisfy these requirements and have shown strong performance in computer-aided diagnosis of mammograms \cite{Burnside:2000wl, ElizabethS:2005gc, Rubin:2005jg, Koller:2009wk, Burnside:2009br}. 
-For our work, we used the model developed by Gimenez et. al. \cite{Gimenez:2014tr} to predict malignancy of breast masses. To review, they use a database 24,645 structured reports of mammographic masses to train a Bayesian network model. They learn the network structure using the Tree-Augmented Naïve Bayes (TAN) algorithm and the model parameters using gradient descent. All model learning and classification was done in Norsys Netica 5.14 \cite{Norsys:1998vl}.
+Where:
 
-\subsection{Test Data Generation}
-Traditional mammography practice does not allow for radiologists to provide observations about all possible descriptors in a mass finding. This makes it impossible for a feedback system to obtain ground truth about a descriptor that is missing from a report it is analyzing. Instead, we created a data set of 10,000 simulated structured mammography reports for evaluation. Evaluation on a simulated data set creates a ground truth for feedback as all descriptors are “observed” upon generation. This allows the feedback framework to request the ground truth of any descriptor in a case. We simulated the reports using forward sampling in the diagnostic Bayesian network model (described above) \cite{Koller:2009wk}. 
+\begin{align}
+Completeness = \frac{1}{N}\sum_{i =1 }^{N}\mathbb{I}\left[D(\mathbf{O};T) = D(\mathbf{u^{(i)}},\mathbf{O};T)\right]
+\end{align}
+
+
 
 \subsection{Statistical Evaluation}
-\textcolor{red}{We will compare the classification accuracies with a McNemare test (CITE Stock:2014tn) and the counts using pairwise paired t-tests.}
+We compare classifiers for statistical significance in their predictive performance. Formally, these tasks are binary classifications. Thus, we formulate the evaluation as pairwise binomial tests and use the McNemar test \cite{Stock:2014tn}.
 
+We also compare compare number of features selected before stopping. This is also a pairwise comparison, but uses count data. Given the large number of samples, we can use the one-sided t-test to evaluate statistical significance.
