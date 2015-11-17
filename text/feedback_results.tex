@@ -1,7 +1,8 @@
 We evaluated the performance of selection and stop criteria both independently and jointly. Our results show that optimizing either function can provide significant gains in the accuracy of decision-support systems. They also reveal that jointly optimizing these criteria (i.e. developing selection criteria specifically to minimize stop critieria) is not necessarily the best way to improve overall classification accuracy.
 
 \subsection{Selection criteria and performance}
-We compared three different types of selection criteria: Random, Maximize Mutual Information (abbreviated as mutual information), and Minimize Cross-Entropy (abbreviated as optimal). We measured how each of these selection criteria affect the classifier estimates of probability of malignancy, stop criteria scores, binary classification performance, and ranking importance of BI-RADS descriptors.  
+We compared three different types of selection criteria: Random, Maximize Mutual Information (abbreviated as \emph{mutual information}), and Minimize Cross-Entropy (abbreviated as \emph{optimal}). We measured how each of these selection criteria affect the classifier estimates of probability of malignancy, stop criteria scores, binary classification performance, a nd ranking importance of BI-RADS descriptors. 
+All three selection criteria start with zero descriptors and end will all descriptors, which means they begin and end with the same performance values. As a result, selection criteria will only determine the intermediary path between the first and final end point. Of particular interest is the final endpoint which is the previously published performance of the decision-support system \cite{Gimenez:2014tr,Burnside:2009br}. We will refer to this as the final performance value.
 
 \subsubsection{Effect of selection criteria on probability of malignancy}
 
@@ -45,29 +46,33 @@ Entropy is a submodular function which means it always decrease when given new i
  	\label{fig:feedback_performance}
  \end{figure}
 
-The most important factor in selection criteria is how it affects the performance of the decision-support system, as measured by classification accuracy, sensitivity, and specificity. The three different selection criteria are clearly differentiated, with optimal as the best method, followed by mutual information, and finally, random.
+The most important factor in selection criteria is how it affects the performance of the decision-support system, as measured by classification accuracy, sensitivity, and specificity. The three different selection criteria are clearly differentiated, with optimal as the best method, followed by mutual information, and finally, random [Figure \ref{fig:feedback_performance}].
 
 \emph{Effect on accuracy}: 
-Optimal selection achieves perfect classification accuracy by selecting a single descriptor. It maintains perfect classification accuracy until it reaches 12 descriptors, when the inherent error of the model affects performance. Mutual information selection has then second fastest improvement on performance. It reaches the model's maximal classification accuracy using only 6 descriptors (compared to all 20). Interestingly, The increase in performance is monotonic, though there is a plateau in accuracy between 2 and 3 features, showing that there must be a minimum amount of information to make good predictions. Finally, random feature selection has the slowest increase in accuracy, though the performance gain still shows faster than linear improvement.
+Optimal selection achieves perfect classification accuracy by selecting a single descriptor. It maintains perfect classification accuracy until it reaches 12 descriptors, when the inherent error of the model affects performance. Mutual information selection has then second fastest improvement on accuracy. It reaches the model's final accuracy value using only 6 descriptors (compared to all 20). The increase in performance is monotonic, though there is a plateau in accuracy between 2 and 3 features, showing that there must be a minimum amount of information to cross this accuracy threshold. Finally, random feature selection has the slowest increase in accuracy, though the performance gain still shows faster than linear improvement.
 
 \emph{Effect on sensitivity}:
-In general, sensitivity is maximized when no features are selected since the model will initially predict that every mass is malignant. Thus, every selection criteria will reduce sensitivity, and the best behavior is to do so as slowly as possible. Optimal feedback has perfect sensitivity until 12 descriptors are selected, and the model's inherent error drives this down for all remaining descriptors. Once again, this is due to it artificially minimizing cross-entropy loss. Mutual information drops sensitivity to the final model minimum within two descriptors, but it does not ever go below the sensitivity of the decision-support system with all descriptors. Random selection drastically reduces sensitivity below the decision-support system's final value
+In general, sensitivity is maximized when no features are selected since the model will initially predict that every mass is malignant. Thus, every selection criteria will only reduce sensitivity, and the best behavior is to do so as slowly as possible. Optimal feedback has perfect sensitivity until 12 descriptors are selected, and the model's inherent error drives this down for all remaining descriptors. Mutual information drops sensitivity to the final sensitivity value within two descriptors, but it does not ever go below this value, thus never doing worse than the original decision-support system. Random selection drastically reduces sensitivity below the decision-support system's final value at five descriptors, and then linearly increasing again.
 
- 
- \subsubsection{Ranking descriptor importance with selection criteria}
- \begin{figure}[h]
- 	\centering
- 	\includegraphics[width=\linewidth]{desc_rank.pdf}
- 	\caption[Ranking descriptor importance with selection criteria]{Box plot of rank of observations requested using different selection criteria. Centerline is the median, the box represents quartiles, whiskers represent entire range, and outliers are points beyond whiskers . Random selects the next observation randomly, mutual information selects the next observation based on maximal mutual information, and optimal selects the next feature that will reduce cross-entropy loss.}
- 	\label{fig:feedback_mammo_ranks}
- \end{figure}
+\emph{Effect on specificity}
+The selection feedback paths for specificity are nearly identical to the accuracy paths described above. This is due to the large amount of benign cases which cause a large amount of false-positive errors. Thus the specificity (equivalent to 1-false positive rate) is the main driver of accuracy.
+
+
+\subsubsection{Ranking descriptor importance with selection criteria}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{desc_rank.pdf}
+	\caption[Ranking descriptor importance with selection criteria]{Box plot of rank of observations requested using different selection criteria. Centerline is the median, the box represents quartiles, whiskers represent entire range, and outliers are points beyond whiskers . Random selects the next observation randomly, mutual information selects the next observation based on maximal mutual information, and optimal selects the next feature that will reduce cross-entropy loss.}
+	\label{fig:feedback_mammo_ranks}
+\end{figure}
  
 
  
  
 \subsection{Performance of (Selection, Stop) criteria pairs}
 
-
+\subsubsection{Number of descriptors selected}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{stop_histograms.pdf}
@@ -75,7 +80,7 @@ In general, sensitivity is maximized when no features are selected since the mod
 	\label{fig:feedback_stop_histograms}
 \end{figure}
 
-
+\subsubsection{Classification performance with selection, stop criteria}
 \begin{table}[h]
 	\centering
 	\caption{first table}

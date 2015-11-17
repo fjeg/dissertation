@@ -1,0 +1,52 @@
+\subsection{Liver imaging}
+Liver lesions stem from a variety of causes, both cancerous and non-cancerous. Imaging of the liver is the primary method to differentiate lesions efficiently and accurately in a non-invasive manner.
+
+\subsubsection{Computed tomography of the Liver}
+Contrast-enhanced CT imaging is the dominant technology used for liver lesion diagnosis \cite{Baron:1994vg}. This modality takes advantage of the fact that the liver receives blood from two main sources, the portal vein and the hepatic artery. The portal vein supplies about 80\% of blood to the liver with the hepatic artery providing the other 20\%. Due to varying physiology among liver lesions, differing lesion types may not share the same blood intake proportions as the surrounding liver tissue. Multi-phasic contrast-enhanced imaging takes advantage of this by obtaining images of the liver at multiple time points after injection of contrast agent. This allows for visualization of lesions due to the difference in time between the arrival of contrast agent in the hepatic and portal circulations. This difference causes several distinctive imaging features on contrast-enhanced imaging. As an example, primary liver cancer tumors receive all blood from the hepatic artery, so they contain higher concentrations of contrast agent than surrounding liver parenchyma during the arterial phase \cite{Lautt:1987wma,Matsui:1991vba}. Arterial-phase contrast-enhanced CT, therefore, may be helpful in finding masses that exhibit malignant tumor characteristics. Other phases may be useful for differentiating tumor types. For example, metastatic tumors appear less dense compared to the normal liver during the portal venous phase.
+
+The difference in density between a lesion and its surrounding tissue at various times after the injection of iodine in a peripheral vein in multi-phasic imaging is called the temporal enhancement pattern. Analysis of a lesion's temporal enhancement pattern through the different phases of image acquisition helps radiologists to make diagnoses. Unfortunately, the specificity of this method is a function of the size of the lesion and prone to a high false positive rate because several types of liver lesions, including benign ones, have similar manifestations on CT images \cite{Lencioni:2005ia}. Human variability has also been shown to be a challenge for lesion differential diagnosis, and automated methods are being investigated to improve diagnosis of these lesions \cite{Armato:2007ks}.
+
+
+\subsection{Breast imaging}
+Breast cancer affects 1 in 8 women in the United States. It is the second leading cause of cancer deaths amongst women \cite{Siegel:2012kt}. Early detection has been shown to reduce the mortality of cancer by catching the disease while it is more easily treatable \cite{Baker:1982jg}. Mammography was developed in an effort to improve such early detection.
+
+\subsubsection{Mammography screening and diagnosis}
+Mammography is the use of x-ray imaging on the breast to identify any abnormalities. Radiologists presented with mammograms are tasked with two problems: detection and interpretation. Detection is the task of visually inspecting the mammogram and locating any possible abnormalities. Interpretation is evaluating whether detected abnormalities are suspicious for breast cancer.
+
+Mammography has shown to be beneficial for early detection of breast cancer \cite{Nystrom:2002hb}. Currently, the American Cancer Society recommends that women with no specific risk for breast cancer get yearly screening mammograms to catch potentially malignant findings early \cite{Smith:2003en}.
+
+\subsubsection{Interpretation of mammography findings}
+Formally, the interpretation problem is defined as follows: A radiologist is presented with a lesion in a mammogram, patient history and demographics, and possibly prior mammograms. The radiologist must decide whether this lesion warrants no action or follow-up (either imaging or biopsy) based on their suspicion of malignancy. This suspicion of malignancy is quantified as the BI-RADS assessment category, which is an ordinal value ranging from 1 to 6. An additional assessment category of 0 is used to indicate there is not enough information in the mammogram to make a decision. These assessment categories were designed to have probabilistic interpretations, where each value has a range of posterior probabilities of malignancy as shown in Table \ref{table:birads}. A BI-RADS assessment of 1, 2, or 3 indicates the recommendation is no immediate follow-up (a negative assessment). A BI-RADS assessment of 4 or 5 indicates a recommendation for follow-up imaging or biopsy should be considered (a positive assessment). An assessment of 0 should not count as either positive or negative, but the fact that it necessitates immediate follow-up imaging means that it is treated as a positive finding \cite{Barlow:2004cy}. BI-RADS 6 is a non-diagnositc category used to indicate that the images reflect a known cancer diagnosis being evaluated for treatment planning. These assessment categories implicitly mean that any lesion with a posterior probability of greater than 2\% should be considered as a positive finding. Recent work has shown that this 2\% threshold rule is justified via epidemiological risk analysis \cite{Burnside:2012fk}. In addition to providing an assessment, radiologists must provide a report that justifies their decision. This report has a set of categorical descriptors standardized by BI-RADS, which can be interpreted as evidence for their decision.
+
+\footnote{The description provided here is with relation to the 4th edition of BI-RADS, which was released in 2003. The 5th edition (released in 2013) of BI-RADS has altered the names of several descriptors and recommendations for assessment categories. Because all the mammography data used for analysis was collected before the release of the 5th edition, we will work under the framework of the 4th edition. All the methods described can easily be extended to adopt the conventions of the 5th edition.}
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|c|c|c|}
+	\hline  BI-RADS Assessment&  Probability of Malignancy & Description \\ 
+	\hline\hline
+	0& N/A & Additional Imaging Needed \\ 
+	\hline
+	1& 0\% & No Abnormality \\ 
+	\hline  
+	2& 0\% & Benign Finding  \\ 
+	\hline  
+	3& $<$ 2\% & Probably Benign Finding \\ 
+	\hline  
+	4& 2-95\% & Suspicious Abnormality \\ 
+	\hline  
+	5& $>$ 95\% & Highly Suggestive of Malignancy \\ 
+	\hline  
+	6& 100\% & Biopsy Proven \\ 
+	\hline 
+\end{tabular}
+\caption{The BI-RADS assessment categories and their probabilistic interpretations.}
+\label{table:birads}
+\end{table}
+
+\subsection{Mammography screening controversy and variability}
+The American Cancer Society recommends annual screening mammography for women over 40 to detect breast cancer early when it is most treatable \cite{Nystrom:2002hb, Smith:2003en, Smart:1997hk}. However, this recommendation has been refuted by several longevity studies \cite{Bleyer:2012dc, Kalager:2012ez},  culminating in the United States Preventative Services Task Force recommending biennial screening after 50 years of age \cite{Kerlikowske:2013ej, Anonymous:2009fl}, which argues that unnecessarily early and frequent screening results in high economic and emotional costs.  False positives in screening drive much of these costs due to expensive follow-up treatment and long-term psychosocial harm to patients \cite{Kerlikowske:2013ej, Brodersen:2013kq}. While a reduction in screening is one possible solution to addressing the issue of false positive detections, it comes at the cost of possibly missing cancer at an early stage. An alternative solution is to directly improve radiologist performance by reducing their false positive interpretations of mammography. 
+
+Like all screening tests, mammography trades off sensitivity with specificity, or equivalently, trading off false negative with false positive findings. These trade-offs are determined by a radiologists' personal model of practice, which is subjective. A conservative radiologist might practice at an increased sensitivity, meaning fewer false negative findings, at the cost of reduced specificity, meaning more false positives. Such subjectivity results in variability in mammography practice, which is a well-known and unsolved challenge \cite{Elmore:2009vu, Elmore:2012er, Beam:1996ui, Taplin:2008bv}. 
+
+Though BI-RADS assessments have objective probabilistic underpinnings, mammography interpretation is inherently subjective. Modern practice traditionally does not include quantitative estimates of these probabilities. Rather, radiologists provide the assessment categories based on training and experience. The use of BI-RADS assessment categories allows us to evaluate radiological performance as if radiologists are binary classifiers. We can measure their true positives (TP), false positives (FP), true negatives (TN), and false negatives (FN) as well as all associated statistics (e.g. positive predictive value, sensitivity, specificity).
