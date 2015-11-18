@@ -1,1 +1,23 @@
-- entropy is submodular
+This work describes a system to elicit feedback on radiologist reports when they are diagnosing breast cancer. It builds upon an underlying decision-support model to iteratively request information in an intelligent manner and stop requesting more information when acceptable performance is achieved. It is also the first such study to empirically evaluate several selection and stopping criteria on large datasets.
+
+\subsection{BI-RADS descriptors are not created equal}
+ random selection -> nostop means that there is a high inequality of information content in birdas
+
+ all or none Sorts based on difficulty
+
+\subsection{Quality of information trumps quality}
+This feedback system shows that more information is not necessarily helpful in decision-support systems, and the quality of information in a report is more valuable than the quantity. Specifically, mutual information selection criteria and report completeness stopping criteria achieve the best classification accuracy by eliciting a mean of only 4.0 descriptors, outperforming the decision-support system with all 20 descriptors. Prior studies in the field of active feature-value acquisition make the implicit assumption that more information always improves the performance of a decision-support system. Such systems must then take into account the cost of new information versus their improvement in performance. When new information can actually be detrimental to performance, these methods break down.
+
+\subsection{Selection criteria need not directly optimize stop criteria}
+Another interesting result of this experiment is that selection and stop criteria, though extremely influential on each other, do not need to be developed in a joint fashion. Much work [CITE] to date develops stop criteria based on cost or performance metrics, and then develops selection criteria that directly optimize this cost function. In this particular study, optimal feedback directly minimizes the entropy of the classifier. Thus, we originally hypothesized that this selection/stop criteria pair would perform best. Instead, optimal feedback had best classification accuracy and fewer descriptors selected using the completeness score. This result held even when using mutual information as a selection criteria, which directly minimizes entropy in expectation.
+
+\subsection{Feedback framework evaluation needs to include selection AND stop criteria}
+Finally, our system directly measures expected classification performance values. Several papers [CITE] depict the performance path of various descriptor selection methods, but it is difficult to compare such paths. First, there is no established statistical framework to holistically judge these performance paths. Instead, prior work has used pairwise hypothesis tests at each point in the graph of number of features selected. Our work displays these paths as well, but we show that taking the stopping criteria into account changes the interpretation of such curves. All medical decision cases are different, and having a stop criteria akin to ``select the five most important descriptors using mutual information'' does not take patient variation into account. 
+
+
+ 
+ 
+
+
+
+ 

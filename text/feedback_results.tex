@@ -1,7 +1,7 @@
 We evaluated the performance of selection and stop criteria both independently and jointly. Our results show that optimizing either function can provide significant gains in the accuracy of decision-support systems. They also reveal that jointly optimizing these criteria (i.e. developing selection criteria specifically to minimize stop critieria) is not necessarily the best way to improve overall classification accuracy.
 
 \subsection{Selection criteria and performance}
-We compared three different types of selection criteria: Random, Maximize Mutual Information (abbreviated as \emph{mutual information}), and Minimize Cross-Entropy (abbreviated as \emph{optimal}). We measured how each of these selection criteria affect the classifier estimates of probability of malignancy, stop criteria scores, binary classification performance, a nd ranking importance of BI-RADS descriptors. 
+We compared three different types of selection criteria: Random, Maximize Mutual Information (abbreviated as \emph{mutual information}), and Minimize Cross-Entropy (abbreviated as \emph{optimal}). We measured how each of these selection criteria affect the classifier estimates of probability of malignancy, stop criteria scores, binary classification performance, and ranking importance of BI-RADS descriptors. 
 All three selection criteria start with zero descriptors and end will all descriptors, which means they begin and end with the same performance values. As a result, selection criteria will only determine the intermediary path between the first and final end point. Of particular interest is the final endpoint which is the previously published performance of the decision-support system \cite{Gimenez:2014tr,Burnside:2009br}. We will refer to this as the final performance value.
 
 \subsubsection{Effect of selection criteria on probability of malignancy}
@@ -30,7 +30,7 @@ We measure this value for every lesion at each iteration of feedback. Figure \re
 All the stop criteria rules we evaluate are based on the concept of driving some score below a defined threshold. As a result, selection criteria should seek to minimize these stop criteria scores in order to stop requesting redundant information. Figure \ref{fig:feedback_score_path} shows the effect of the three different selection criteria on the two stop criteria by plotting the mean stop score as a function of number of descriptors selected.
 
 \emph{Effect on incompleteness}:
-While all three methods drive the incompleteness score down with a single request, their behavior diverges quickly. Random feedback requests descriptors that make the report \emph{less} complete. This is due to the fact that descriptors are highly correlated, and observing irrelevant information early on increases the impact of unobserved relevant descriptors. Mutual information has a linear decrease in the incompleteness score, though th effect is small. Optimal selection drops the incompleteness score drastically, showing more complete reports with an incomplete set of descriptors. This is driven by the optimal selection criteria driving probabilities towards 0 or 1. The further this posterior probability is from the 2\% decision threshold, the less likely new descriptors can have a large enough effect on the probability to cross this decision boundary.
+While all three methods drive the incompleteness score down with a single request, their behavior diverges quickly. Random feedback requests descriptors that make the report \emph{less} complete. This is due to the fact that descriptors are highly correlated, and observing irrelevant information early on increases the impact of unobserved relevant descriptors. Mutual information has a linear decrease in the incompleteness score, though th effect is small. Optimal selection drops the incompleteness score drastically, showing more complete reports with only a subset of total descriptors. This is driven by the optimal selection criteria driving probabilities towards 0 or 1. The further this posterior probability is from the 2\% decision threshold, the less likely new descriptors can have a large enough effect on the probability to cross this decision boundary.
 
 \emph{Effect on entropy}:
 Entropy is a submodular function which means it always decrease when given new information \emph{in expectation}. This is described by the principle that ``\emph{information never hurts}'' \cite{Nemhauser:1978ck,Krause:2005tr}. Such behavior is evident in random and mutual information selection, which always decrease entropy of classification, though mean entropy using mutual information selection is always lower than random selection outside of the trivial cases using 0 and all 20 features. Optimal feedback achieves entropy below the theoretical minimum due to the fact that it ``cheats'' and looks ahead at descriptors which most minimize this entropy. As a result, it violates the property of submodularity since we do not calculate the next feature in expectation.
@@ -52,7 +52,7 @@ The most important factor in selection criteria is how it affects the performanc
 Optimal selection achieves perfect classification accuracy by selecting a single descriptor. It maintains perfect classification accuracy until it reaches 12 descriptors, when the inherent error of the model affects performance. Mutual information selection has then second fastest improvement on accuracy. It reaches the model's final accuracy value using only 6 descriptors (compared to all 20). The increase in performance is monotonic, though there is a plateau in accuracy between 2 and 3 features, showing that there must be a minimum amount of information to cross this accuracy threshold. Finally, random feature selection has the slowest increase in accuracy, though the performance gain still shows faster than linear improvement.
 
 \emph{Effect on sensitivity}:
-In general, sensitivity is maximized when no features are selected since the model will initially predict that every mass is malignant. Thus, every selection criteria will only reduce sensitivity, and the best behavior is to do so as slowly as possible. Optimal feedback has perfect sensitivity until 12 descriptors are selected, and the model's inherent error drives this down for all remaining descriptors. Mutual information drops sensitivity to the final sensitivity value within two descriptors, but it does not ever go below this value, thus never doing worse than the original decision-support system. Random selection drastically reduces sensitivity below the decision-support system's final value at five descriptors, and then linearly increasing again.
+In general, sensitivity is maximized when no features are selected since the model will initially predict that every mass is malignant. Thus, every selection criteria will only reduce sensitivity, and the best behavior is to do so as slowly as possible. Optimal feedback has perfect sensitivity until 12 descriptors are selected, and the model's inherent error drives this down for all remaining descriptors. Mutual information drops sensitivity to the final sensitivity value within two descriptors, but it does not ever go below this value, thus never doing worse than the original decision-support system. Random selection drastically reduces sensitivity below the decision-support system's final value. It achieves a minimum sensitivity at five descriptors before reversing and linearly increases until the final sensitivity value.
 
 \emph{Effect on specificity}
 The selection feedback paths for specificity are nearly identical to the accuracy paths described above. This is due to the large amount of benign cases which cause a large amount of false-positive errors. Thus the specificity (equivalent to 1-false positive rate) is the main driver of accuracy.
@@ -66,33 +66,57 @@ The selection feedback paths for specificity are nearly identical to the accurac
 	\caption[Ranking descriptor importance with selection criteria]{Box plot of rank of observations requested using different selection criteria. Centerline is the median, the box represents quartiles, whiskers represent entire range, and outliers are points beyond whiskers . Random selects the next observation randomly, mutual information selects the next observation based on maximal mutual information, and optimal selects the next feature that will reduce cross-entropy loss.}
 	\label{fig:feedback_mammo_ranks}
 \end{figure}
- 
+
+Every selection criteria selects a different path of descriptors for every report. Since selection criteria must select descriptors that most improve classification accuracy (besides random selection), the rank statistics of each descriptor provide a measure for their importance conditioned on prior observations. Figure \ref{fig:feedback_mammo_ranks} shows box plots of the distributions of descriptor rankings.
+
+
+\emph{Random selection rankings}
+Random selection does not provide any information about the descriptor ranks. As a result, all have a median rank between 9 and 11, and their tails span the entire distribution of cases. This figure is included as a reference point to selection criteria with no information about descriptor importance.
+
+\emph{Mutual information selection rankings}
+Mutual information will always select the same initial feature, BI-RADS assessment category, because it has the highest mutual information conditioned on no prior observations. Stochasticity then emerges in the following descriptors based upon report content. Nonetheless, descriptors which are generally considered extremely important still continuously rank highly. Demographic information such as age, personal history of breast cancer, and family history of breast cancer are all within the top five descriptors. The other category of highly ranked descriptors is mass characteristics including margin, density, and stability. Lower ranked descriptors are infrequently used observations to describe breast phenotype.
+
+\emph{Optimal selection rankings}
+Optimal selection generally follows a similar early path as mutual information, selecting BI-RADS assessment category and demographic descriptors. It deviates significantly after the top five descriptors by putting several breast phenotype descriptors the top ten descriptors, as well as downplaying the importance of traditionally informative features such as breast density and mass margin.
 
  
  
 \subsection{Performance of (Selection, Stop) criteria pairs}
 
 \subsubsection{Number of descriptors selected}
-\begin{figure}[h]
+
+\begin{figure}[hb]
 	\centering
 	\includegraphics[width=\linewidth]{stop_histograms.pdf}
-	\caption{Histograms depicting how many features a (selection,stop) criteria pair request. Each column is a pair, and each row is a threshold on the stop score. A good performing pair will request fewer features while still maintaining satisfactory performance metrics. Note: histograms where the 20 features are selected every time not plotted}
+	\caption[Histograms of number of features selected for feedback]{Histograms depicting how many features a (selection,stop) criteria pair request. Each column is a pair, and each row is a threshold on the stop score. A good performing pair will request fewer features while still maintaining satisfactory performance metrics. Note: histograms where the 20 features are selected every time not plotted as ill conditioned for density estimate lines}
 	\label{fig:feedback_stop_histograms}
 \end{figure}
+
+All stop criteria in this study are parametrized by a threshold and the selection criteria used to obtain new features. Each of these groups of stop criteria, threshold, and selection criteria has its own number of features requested until stopping. We record how many observations are requested and plot their histogram across all 10,000 reports in figure \ref{fig:feedback_stop_histograms}. Thresholds are modulated along the rows, and selection/stop criteria pairs are modulated along columns. Despite the large amount of feedback methods, there are three common patterns in these histograms which we describe as: all descriptors, all or none, minimal information.
+
+\emph{All descriptors}:
+Feedback methods that select all possible descriptors would place undo burden on radiologists, and in this context, are the worst performers. There are two main drivers of methods that select all descriptors: random selection and low-threshold entropy stopping. 
+
+\emph{All or no descriptors}:
+Histograms demonstrating this pattern either stop within 3 descriptors or request all 20 descriptors. Examples of this behavior is low-threshold completeness stopping, and medium threshold ($t$ between 0.001 and 0.01) entropy.
+
+\emph{Minimal information requested}:
+Feedback methods that stop within few requested descriptors (under 5) are considered minimal information feedback criteria. Completeness with medium to high threshold values (outside of random selection) show such behavior, though when coupled with mutual information selection, it still has non-trivial amount of descriptors reach 20 requests. Entropy also requests minimal information when using high thresholds.
+ 
 
 \subsubsection{Classification performance with selection, stop criteria}
 \begin{table}[h]
 	\centering
-	\caption{first table}
-	\label{my-label}
+	\caption[Feedback system performance]{Table of all stop/selection feedback method results, depicting number of features selected (mean and median), accuracy (acc.), sensitivity (sens.), and specificity (spec.). Entries in red are the optimal values (minimum features or maximal classification statistics) without using optimal feedback. Entries in italics include optimal feedback.}
+	\label{table:feedback_perf}
 	\begin{tabularx}{\textwidth}{|X|X|X|X|X|X|X|X|}
 		\hline
 		feedback criteria        & stop criteria            & threshold & mean features & median features  & acc.           & sens.                & spec.          \\ \hline
-		\multirow{8}{*}{random}  & \multirow{4}{*}{comp.}   & 0         & 16.4          & 19               & 0.921          & \textit{0.940}       & 0.920          \\ \cline{3-8} 
+		\multirow{8}{*}{random}  & \multirow{4}{*}{comp.}   & 0         & 16.4          & 19               & 0.921          & \textcolor{red}{\textit{0.940}}      & 0.920          \\ \cline{3-8} 
 		&                          & 0.001     & 12.8          & 13               & 0.923          & 0.936                & 0.922          \\ \cline{3-8} 
 		&                          & 0.01      & 7.8           & 6                & 0.934          & 0.843                & 0.936          \\ \cline{3-8} 
 		&                          & 0.02      & 5.4           & 4                & 0.894          & 0.739                & 0.898          \\ \cline{2-8} 
-		& \multirow{4}{*}{entropy} & 0         & 20.0          & 20               & 0.921          & \textit{0.940}       & 0.920          \\ \cline{3-8} 
+		& \multirow{4}{*}{entropy} & 0         & 20.0          & 20               & 0.921          & \textcolor{red}{\textit{0.940}}       & 0.920          \\ \cline{3-8} 
 		&                          & 0.001     & 17.1          & 20               & 0.921          & 0.940                & 0.920          \\ \cline{3-8} 
 		&                          & 0.01      & 13.8          & 14               & 0.921          & 0.936                & 0.921          \\ \cline{3-8} 
 		&                          & 0.02      & 11.4          & 11               & 0.924          & 0.932                & 0.923          \\ \hline
@@ -114,6 +138,12 @@ The selection feedback paths for specificity are nearly identical to the accurac
 		&                          & 0.02      & 3.4           & \textit{2}       & 0.948          & \textit{0.940}       & 0.949          \\ \hline 
 	\end{tabularx}
 \end{table}
+
+The overall performance of this system requires balancing the trade-off between selecting the minimal amount of descriptors while maximizing classification performance. Table \ref{table:feedback_perf} shows the overall performance of all possible selection, and stop criteria pairs. We record number of features requested (mean and median), classification accuracy, sensitivity, and specificity. Number of features requested is better when it is smaller. Accuracy, sensitivity, and specificity are better when they are larger. We highlight top performing feedback methods without using optimal selection in red, and overall top performing methods with italics.
+
+We consider the baseline performance as the performance of the decision-support system which requests all features. This results in a classification accuracy of 92.1\%, sensitivity of 94.0\%, and specificity of 92.0\%. Overall, the best achieved accuracy was 99.8\% (optimal selection, completeness < 0.02 stopping), best sensitivity was 94.0\% (several cases), and best specificity was 99.9\% (optimal selection, completeness < 0.02 stopping). The lowest median descriptors requested was 2, and the lowest median descriptors requested was 2.34.
+
+We also differentiate performance using optimal selection from the other selection methods because it is impossible to request optimal descriptors in practice. Without using optimal feedback, the best accuracy was 93.6\% (mutual information selection, completeness < 0.01 stopping), best sensitivity 94.0\% (several), and best specificity 93.7\% (mutual information, completeness < 0.01 stopping). The lowest median descriptors selected was 2 and the lowest mean features selected was 3.6 (both achieved by mutual information, completeness but with different thresholds).
 
 
 
