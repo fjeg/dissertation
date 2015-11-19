@@ -1,9 +1,8 @@
 This work describes a system to elicit feedback on radiologist reports when they are diagnosing breast cancer. It builds upon an underlying decision-support model to iteratively request information in an intelligent manner and stop requesting more information when acceptable performance is achieved. It is also the first such study to empirically evaluate several selection and stopping criteria on large datasets.
 
-\subsection{BI-RADS descriptors are not created equal}
- random selection -> nostop means that there is a high inequality of information content in birdas
-
- all or none Sorts based on difficulty
+%\subsection{BI-RADS descriptors are not created equal}
+%random selection -> nostop means that there is a high inequality of information content in birdas
+%all or none Sorts based on difficulty
 
 \subsection{Quality of information trumps quality}
 This feedback system shows that more information is not necessarily helpful in decision-support systems, and the quality of information in a report is more valuable than the quantity. Specifically, mutual information selection criteria and report completeness stopping criteria achieve the best classification accuracy by eliciting a mean of only 4.0 descriptors, outperforming the decision-support system with all 20 descriptors. Prior studies in the field of active feature-value acquisition make the implicit assumption that more information always improves the performance of a decision-support system. Such systems must then take into account the cost of new information versus their improvement in performance. When new information can actually be detrimental to performance, these methods break down.

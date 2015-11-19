@@ -1,6 +1,5 @@
 I perform annotation verification by framing this as a classification problem. The task is to predict semantic features of liver lesions from the image. I do this by following a traditional machine-learning approach: extract computationally-derived features from training images, use these features along with their semantic labels to train a classifier, and evaluate this classifier on held-out data.
 
-
 \subsection{Difficulties in medical image classification}
 There are a robust set of tools to perform this binary classification such as support-vector machines, Gaussian discriminant analysis, na\"{i}ve bayes, k-nearest-neighbor, and logistic regression. These classifiers all have their pros and cons, but none perform particularly well in the this domain because there are generally much fewer cases than features. The cost of obtaining more annotated images is significantly higher than extracting more meaningful computational features. As a result, this is a classic case of p >> n, or an overdetermined classification problem. This ill-conditioned problem allows any model to fit the data perfectly without improving generalization accuracy; a problem known as overfitting \cite{Hastie:2009wp,Friedman:2009wm}. We can overcome overfitting through regularization which reduces model complexity to improve generalization error. 
 
