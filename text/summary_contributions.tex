@@ -2,20 +2,25 @@ This work demonstrates contributions to the our understanding of reporting in ra
 
 \subsection{Radiology contributions}
 
-\subsubsection{Automatic annotation and verification of descriptors in liver CT scans}
-I created a system that takes CT scans of the liver and outputs the associated RadLex descriptors. While there have been some systems to annotate images with specific descriptors, I show a general-purpose framework that can annotate \emph{all} descriptors. This is the first such step in creating a completely automated radiological report. I also describe how this system can be used to verify the observations made by a radiologist to evaluate the correctness of their reports
+\begin{description}
+	\item[Automatic annotation and verification of descriptors in liver CT scans] \hfill \\
+	I created a system that takes CT scans of the liver and outputs the associated RadLex descriptors. While there have been some systems to annotate images with specific descriptors, I show a general-purpose framework that can annotate \emph{all} descriptors. This is the first such step in creating a completely automated radiological report. I also describe how this system can be used to verify the observations made by a radiologist to evaluate the correctness of their reports
+	
+	\item[Correlated incomplete reports with diagnostic error] \hfill \\
+	I developed a method to measure the information content in the mammography report with respect to the diagnosis made by the radiologist. I then show that this measure, deemed the incompleteness score, is highly correlated with errors in diagnosis. Specifically, this score can be used to predict when radiologists are making false-positive, or type II, errors in estimating the risk of masses seen in the mammogram. While there have been qualitative assessments of report completeness, this is the first time that a reproducible, quantitative value has been designed to measure the information content in the radiological report.
+\end{description}
 
-\subsubsection{Correlated incomplete reports with diagnostic error}
-I developed a method to measure the information content in the mammography report with respect to the diagnosis made by the radiologist. I then show that this measure, deemed the incompleteness score, is highly correlated with errors in diagnosis. Specifically, this score can be used to predict when radiologists are making false-positive, or type II, errors in estimating the risk of masses seen in the mammogram. While there have been qualitative assessments of report completeness, this is the first time that a reproducible, quantitative value has been designed to measure the information content in the radiological report.
 
 
 \subsection{Informatics Contributions}
 
-\subsubsection{General purpose semantic classification of images}
-I show that general purpose features derived from images with traditional digital signal processing methods can be used for semantic classification of images. Generally, features are painstakingly extracted from images explicitly to maximize classification accuracy of some semantic category. I show that we can be application agnostic in building feature extraction pipelines by using $L_1$ regularized logistic regression. It performs well for classification across a broad number of tasks and does so efficiently. Since this work was first published, deep learning has generalized these findings; showing that feature extraction should be done in a general and expansive fashion while coupled with strong regularized classifiers.
-
-\subsubsection{Monte-Carlo computation of same-decision probability}
-I formulated a new solution to the computation of the same-decision probability via a randomized algorithm. I show that this is possible because of the unique ability to efficiently sample unobserved features from a Bayesian network. This method allows us to compute the same-decision probability in networks of any size or structure to an arbitrary level of error, improving upon prior work in approximation-based or exact-based results.
-
-\subsubsection{Framework for delivering and evaluating feedback in decision-support systems}
-I show that decomposing feedback systems into stop and selection criteria allows for a quantitative analysis of decision-support systems with partial information. Furthermore, my evaluation demonstrates that simple feedback methods can have strong performance improvement in decision-support systems even when they violate model assumptions. This is the first such method that combines analysis of selection and stop criteria simultaneously and can open the door to more sophisticated methods in these fields.
+\begin{description}
+	\item[General purpose semantic classification of images] \hfill \\
+	I show that general purpose features derived from images with traditional digital signal processing methods can be used for semantic classification of images. Generally, features are painstakingly extracted from images explicitly to maximize classification accuracy of some semantic category. I show that we can be application agnostic in building feature extraction pipelines by using $L_1$ regularized logistic regression. It performs well for classification across a broad number of tasks and does so efficiently. Since this work was first published, deep learning has generalized these findings; showing that feature extraction should be done in a general and expansive fashion while coupled with strong regularized classifiers.
+	
+	\item[Monte-Carlo computation of same-decision probability] \hfill \\
+	I formulated a new solution to the computation of the same-decision probability via a randomized algorithm. I show that this is possible because of the unique ability to efficiently sample unobserved features from a Bayesian network. This method allows us to compute the same-decision probability in networks of any size or structure to an arbitrary level of error, improving upon prior work in approximation-based or exact-based results.
+	
+	\item[Framework for delivering and evaluating feedback in decision-support systems] \hfill \\
+	I show that decomposing feedback systems into stop and selection criteria allows for a quantitative analysis of decision-support systems with partial information. Furthermore, my evaluation demonstrates that simple feedback methods can have strong performance improvement in decision-support systems even when they violate model assumptions. This is the first such method that combines analysis of selection and stop criteria simultaneously and can open the door to more sophisticated methods in these fields.
+\end{description}
