@@ -10,7 +10,7 @@ With IRB approval, I obtained 79 de-identified CT images of liver lesions in the
 
 
 \subsection{Semantic Features}
-A radiologist annotated the ROI with the Electronic Physician's Annotation Device (ePAD; formerly iPAD) \cite{Napel:2010es, Rubin:2008uz}. The ePAD system is based on a controlled radiological vocabulary called RadLex to define semantic features \cite{Korenblum:2011gx, Langlotz:2006jn}, and enforces complete description of the required aspects of the visualized lesion. We extended the RadLex terminology to include a broader array of descriptive terms for this study that more comprehensively describe liver lesions. Each annotation resulted in the creation of a binary semantic feature vector of length 76 to indicate positive or negative observations.
+A radiologist annotated the ROI with the Electronic Physician's Annotation Device (ePAD; formerly iPAD) \cite{Napel:2010vb, Rubin:2008uz}. The ePAD system is based on a controlled radiological vocabulary called RadLex to define semantic features \cite{Korenblum:2011gx, Langlotz:2006jn}, and enforces complete description of the required aspects of the visualized lesion. We extended the RadLex terminology to include a broader array of descriptive terms for this study that more comprehensively describe liver lesions. Each annotation resulted in the creation of a binary semantic feature vector of length 76 to indicate positive or negative observations.
 Semantic features were not all equally likely and ranged widely in annotation frequency. The entropy of each semantic feature was measured using the binary entropy function in order to determine the distribution of positive versus negative observations. The binary entropy function is defined as:
 
 \begin{align}
