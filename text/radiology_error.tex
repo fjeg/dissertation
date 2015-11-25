@@ -1,0 +1,56 @@
+Errors in the interpretation and diagnosis in radiology are well-known shortcomings in radiology \cite{Fitzgerald:2001hn}. The nature of the field requires that humans provide a subjective assessment of medical images and make medical decisions under such uncertainty \cite{Wood:1999ew}. Such a model of practice leads to error and variability in performance. In this section, I review some of the prevalent studies measuring this error.
+
+\subsection{Liver error}
+Recent efforts to screen at-risk populations for hepatocellular carcinoma spurred studies into performance of diagnosis. \citeA{Brancatelli:2003tm} studied the false positive rate of helical CT imaging, finding an 8\% false positive rate in a population of 1,329 patients. A common cause of error is small lesions (< 2cm) due to their difficulty in detection and interpretation \cite{Willatt:2008gs,Lencioni:2005ia}. 
+
+\subsection{Mammography error}
+Mammography is one of the most common imaging tests performed today, and as a result, there is substantial literature documenting its error and variability. Much of this is inherent to the nature of screenings exams. Like all screening tests, mammography trades off sensitivity with specificity. These trade-offs are determined by a radiologists' personal model of practice, which is subjective. A conservative radiologist might practice at an increased sensitivity, meaning fewer false negative findings, at the cost of reduced specificity, meaning more false positives. Such subjectivity results in variability in mammography practice. 
+
+A review by \citeA{Boyer:2012gk} analyzed the sources of error mammography interpretation. They found two types of reading errors (quoted from the review):
+
+\begin{enumerate}
+	\item ``Detection errors occur when a lesion is not seen by the reader. Missed lesions tend to occur in dense breasts, are often present as a mass and are frequently found in the retroglandular area.
+	
+	\item ``Interpretation errors'' occur when the lesion is detected but misinterpreted by the reader.
+\end{enumerate}
+
+In this work we focus on interpretation errors.
+
+\subsubsection{False positive errors in mammography}
+The driving factor behind actual errors in mammography reading is false positive findings \cite{Kerlikowske:2013ej}. This is due in large part to the fact that breast cancer is a low probability event, so false positive findings are much more likely to occur in volume than false negatives. Furthermore, mammography is designed to be extremely sensitive to breast cancer, leading to conservative practice standards so as not to miss potential cancers. Though a false negative finding has the obvious negative impact in that it delays treatment, false positive findings are a growing concern. Not only do they lead to unnecessary and costly testing, but they cause long term psychosocial harm in patients \cite{Brett:2005gq,Brodersen:2013kq}.
+
+
+\subsubsection{Individual radiologist variability in diagnosis}
+The primary method to quantify radiologist performance in mammography is with receiver-operating characteristic curve analysis. \citeA{Beam:1996ui} was the first to document significant variability in mammography, showing a range of 40\% in sensitivity and a range of 11\% in overall accuracy.\citeA{Barlow:2004cy} performed a systemic analysis of a large cohort of radiologists, revealing significant variability in sensitivity and specificity of diagnosis [Figure \ref{fig:barlow_variability}]. He measured the performance of 124 radiologists over a 5-year period and found their recall rates ranged from 1.8\% to 26.2\% , specificity ranged from 74\% to 98\% , and sensitivity ranges were not reported due to being extremely large as a result of few true cancers. They tested for variability between these performance values and all were deemed significant. \citeA{Elmore:2009vu} replicated these studies with 187 interpreting 1,036,155 screening mammograms in 531,705 women [Figure \ref{fig:elmore_variability}]. She found that ``interpretive performance varied widely with the median and interquartile ranges for performance measures as follows: recall rate, 9.3\% and 6.3\%–13.2\%; false-positive rate, 8.9\% and 5.9\%– 12.8\%; sensitivity, 83.8\% and 74.5\%– 92.3\%; and PPV1, 4.0\% and 2.6\%–5.9\%, respectively.''
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{barlow_variability.pdf}
+	\caption[ROC analysis of 124 radiologists over a 5 year screening period]{ROC analysis of 124 radiologists over a 5 year screening period. Radiologists viewed 469,512 mammograms which were linked to cancer outcomes. Variability in sensitivity and specificity of radiologists was found to be statistically significant}
+	\label{fig:barlow_variability}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{elmore_variability.pdf}
+	\caption[Performance of 187 U.S. radiologists who interpreted images from screening mammographic examinations]{Performance of 187 U.S. radiologists who interpreted images from screening mammographic examinations (with images from one or more examinations associated with a cancer diagnosis). Sensitivity and false-positive rate are shown for each radiologist. Specificity was calculated by subtracting false-positive rate from one. Size of circle represents number of screening mammograms interpreted by that radiologist that were associated with a cancer diagnosis, with larger circles representing more cancers. Small circle may represent a radiologist with screening mammograms associated with one or two cancers. Normalized partial area under the curve is 0.82. Two areas are in color to highlight radiologists with both sensitivity and false-positive rate in highest (>75th percentile in green) and lowest (<25th percentile in red) rating for interpretive performance on basis of national BCSC benchmarks for screening performance (11). Figure and caption from \cite{Elmore:2009vu}}
+	\label{fig:elmore_variability}
+\end{figure}
+
+
+
+\subsubsection{Institutional diagnostic variability in mammography}
+Beyond individual radiologist variability, \citeA{Taplin:2008bv} showed that \emph{institutions} have significant variability in their specificity, $PPV_1$ and $PPV_2$ (though no statistical significance was shown in sensitivity, likely due to the inherent variance in sensitivity for mammography) [Figure \ref{fig:taplin_variability}].
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{taplin_ppv_variability}
+	\caption[Institutional variability in mammography]{Screening mammography performance measures for the 44 facilities. A) Sensitivity. B) Specificity. C) Positive predictive value of any additional evaluation ($PPV_1$). D) PPV of referral for biopsy ($PPV_2$). Diamonds indicate mean values; error bars correspond to 95\% confidence intervals. The 44 facilities varied statistically significantly in specificity (P < .001), $PPV_1$ (P < .001), and $PPV_2$ (P = .002) but not in sensitivity (P = .99). Figure and caption from \cite{Taplin:2008bv}}
+	\label{fig:taplin_variability}
+\end{figure}
+
+
+\subsubsection{Radiologist variability in BI-RADS usage}
+Although BI-RADS to standardizes the terminology in mammography reports, it cannot fully enforce how these terms are used. \citeA{Liberman:ws} first showed hints that variability is a problem in usage of descriptors. They had five radiologists evaluate 60 of the same mammography studies and found considerable disagreement in ``associated findings'' and ``special cases.'' A similar study by \citeA{Berg:2000jf} had five mammographers evaluate 103 screening mammograms and they saw significant variability in usage of descriptors as well as BI-RADS assessments. They did a follow up study that showed how this could be reduced by specific BI-RADS training, but the system only helped for evaluation of masses \cite{Berg:2002fy}. \citeA{Lazarus:2006bl} performed a study solely focused on descriptor agreement between five radiologists in 94 cases. They found similar results with moderate agreement of mass descriptors and less agreement with calcification descriptors. All kappa values in for mammography were below 0.5 in any descriptor.
+
+

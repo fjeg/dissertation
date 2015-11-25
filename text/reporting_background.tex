@@ -1,7 +1,68 @@
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=1\linewidth]{}
+%	\caption[short]{long}
+%	\label{fig:}
+%\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{rad_report_workflow.pdf}
+	\caption[short]{long}
+	\label{fig:}
+\end{figure}
 Findings in radiology are communicated primarily via text-reports.
 
+\subsection{Importance of reporting}
+\cite{Sistrom:2005cx} - primary form of communication
+\cite{Levinson:1994ko} - 80\% malpractice is communicaiton
+\cite{Oppenheim:2012tq} - report is court
+
+\subsection{Perils of bad reporting}
+
+\subsection{Good reporting practices}
+
+\subsubsection{Structured reporting}
+
+
+\subsection{Reports of the future}
 
 Typical radiology report creation is done via dictation while the radiologist is interpreting the image. This reporting process is unique in medicine since the report is created \emph{during} the workup and analysis of the patient \cite{Noumeir:2006cb}.
 
 
-Considerable effort has been made to improve upon the variability in report content and diagnosis; arguably the most successful of which is in mammography \cite{Langlotz:2009fn,Burnside:2009ki}. The Breast Imaging-Reporting and Data System (BI-RADS) provides a standard lexicon of descriptors for radiological observations \cite{Liberman:ws}. This standardized language has virtually eliminated ambiguity in terminology across the United States. Further work has been done to create the RadLex ontology for a more universal solution to radiological terminology \cite{Langlotz:2006jn}. Yet, there is still a substantial body of work revealing variability with regard to sensitivity and specificity of evaluation of lesion malignancy amongst different readers as well as different facilities \cite{Jackson:2009fw, Beam:1996ui, Elmore:2002vc, Taplin:2008bv}. Such variability is not restricted to diagnosis and impressions; even the \emph{findings} within the contents of the report have shown variability \cite{Hobby:2000th, Robinson:1997uq}.
+The Breast Imaging-Reporting and Data System (BI-RADS) provides a standard lexicon of descriptors for radiological observations \cite{Liberman:ws}. This standardized language has virtually eliminated ambiguity in terminology across the United States. Further work has been done to create the RadLex ontology for a more universal solution to radiological terminology \cite{Langlotz:2006jn}.
+
+Krupinski:2012dx
+	Morgan:2011ct
+	Andriole:2011cia
+	Bosmans:2011ep
+	Burnside:2009ki
+	Berlin:2009vo
+	Reiner:2009ib
+	Berlin:2006if
+	Liu:2006fy
+	Ramin:2005ff
+	Sistrom:2005cx
+	HaraldO:2004hi
+	Johnson:2004kh
+	Ash:2004fy
+	Vohrah:2003tp
+	Liberman:2002gg
+	Naik:2001tt
+	Taira:2001vg
+	Hobby:2000th
+	Langlotz:2000vn
+	Berlin:1996uj
+	Bell:1992vr
+	ENFIELD:1923hr
+	Berlin:3qCzAHrG
+	Langlotz:2015vq - langlotz book
+
+\cite{Langlotz:2006jn} - radlex
+
+
+The radiology report conveys the radiologist's findings, interpretation of these findings, and suggested patient management. It is also the primary form of communication of this information to referring clinicians or patients \cite{Sistrom:2005cx}. Given that communication breakdowns constitute 80\% of medical malpractice lawsuits \cite{Levinson:1994ko}, and radiological reports are legally admissible court documents \cite{Oppenheim:2012tq}, the radiological community has made considerable effort to improve reports \cite{Langlotz:2015vq}. The Breast Imaging Reporting and Data System (BI-RADS) successfully standardized the language and assessment guidelines for mammography \cite{Liberman:ws,Langlotz:2009fn,Burnside:2009ki}. RadLex is an effort to extend this work to all radiological domains standardization by defining a standard radiological lexicon \cite{Langlotz:2006jn}. Beyond terminology, there is a strong push to create \emph{structured reports} that standardize report format and organization \cite{Langlotz:2009dd,Reiner:2009ib}. Structured reports not only can improve communication, but they allow for computability of the report information beyond the constraints of free-text documents. Unfortunately, structured reporting is not without its drawbacks. It requires new software to implement into the clinical work flow which is costly in terms of integration and training. More importantly, structured report creation is time-intensive and imposes distractions in the traditional radiological work flow, directly interfering with timeliness \cite{Weiss:2008er}. Despite these shortcomings, structured reporting is widely seen as the future of radiological reporting \cite{Langlotz:2015vq}.
+
+Both standardized terminology and structured reporting are solid steps to improving the language and format of the report, but they do not go far enough to improve the actual information content in the report. Several reviews of medical practitioners identify key tenets of report quality that are not addressed by current reporting tools: \textbf{correctness} of findings within the image, \textbf{completeness} of the description of such findings, and \textbf{consistency} of report findings with diagnosis \cite{Johnson:2004kh, HaraldO:2004hi, Reiner:2006fa}. In the framework of the semiotic triangle, we need to go beyond tools to simply enforce syntax; we need to create methods to improve the \emph{semantic} meaning behind concepts in the report \cite{Mead:2006wm}. I put forth that decision support systems can provide this level of analysis. 
