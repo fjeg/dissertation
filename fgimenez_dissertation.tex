@@ -36,15 +36,12 @@
 \usepackage{bm}								% enables boldface in math mode with \boldsymbol{}
 \usepackage{tabularx}						% word wrapping in tables
 \usepackage{multirow}						% enables spanning multiple rows in a table
-\usepackage{fixltx2e}						% enables \textsubscript{}
 \usepackage{float}							% enables H to force figure placement here
-\usepackage{import}							% import path resolution
 \usepackage[T1]{fontenc}					% modern font encoding
 \usepackage{lmodern}						% latin modern font
 \usepackage{algorithm}						% algorithm float box
 \usepackage{algpseudocode}					% algorithmicx type setting
 \usepackage{apacite}						% apa style (author year)
-%\usepackage{macros}							% .sty file with all my macros
 
 %---------------------------------------------------------------------------------------------------
 % updates to algorithmic package
@@ -52,13 +49,14 @@
 \renewcommand{\algorithmicensure}{\textbf{Output:}}  % \ensure = OUTPUT:
 \newcommand*\Let[2]{\State #1 $\gets$ #2}  %\LET{a}{b} = a \gets b
 
+
+%---------------------------------------------------------------------------------------------------
+% Math operators to for argmax and argmin
 \DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator*{\argmin}{argmin}
 %---------------------------------------------------------------------------------------------------
 % Specify my figures folder
-
 \graphicspath{{./figures/}}
-
 %---------------------------------------------------------------------------------------------------
 % Electronic submission:
 % * Set \onlinetrue: removes copyright and signature pages
@@ -136,14 +134,21 @@
 %---------------------------------------------------------------------------------------------------
 % Chapters. Each must begin with: \chapter{myChapterTitle}.
 
-\import{text/}{intro_chapter}
-\import{text/}{radiology}
-%\import{text/}{decision_support}
-\import{text/}{annotation_verification}
-\import{text/}{completeness_analysis}
-\import{text/}{feedback}
-\import{text/}{conclusions}
+%\import{text/}{intro_chapter}
+%\import{text/}{radiology}
+%%\import{text/}{decision_support}
+%\import{text/}{annotation_verification}
+%\import{text/}{completeness_analysis}
+%\import{text/}{feedback}
+%\import{text/}{conclusions}
 
+\include{text/intro_chapter}
+\include{text/radiology}
+%\import{text/}{decision_support}
+\include{text/annotation_verification}
+\include{text/completeness_analysis}
+\include{text/feedback}
+\include{text/conclusions}
 
 
 %---------------------------------------------------------------------------------------------------
