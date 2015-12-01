@@ -1,4 +1,4 @@
-I present a method to measure how complete a radiology report is based on the following principle:
+In order to improve upon the limitations of these previous methods, I present a measure of report completeness based on the following principle:
 
 \begin{quote}
 \begin{center}
@@ -19,7 +19,7 @@ SDP = \sum_{u \in U}\mathbb{I}\left[D(\mathbf{O};T) = D(\mathbf{u},\mathbf{O};T)
 Where $\mathbb{I}[\cdotp]$ is an indicator function that outputs 1 if true and 0 if false. 
 In the context of mammography, $D(\cdotp)$ = diagnosis, $\mathbf{O}$ = report data, $\mathbf{U}$ = Unobserved descriptors, and $T$ = BI-RADS 2\% threshold.
 
-Though this is a well-defined metric, it is intractable to compute \cite{Chen:2013tw}. The summation requires iterating over all possible combinations of missing data which is an exponentially large search space. Despite this challenge, there are algorithms to approximate it based on statistical bounds on its value \cite{Choi:2012id}. The drawback here is that such bounds can be weak under a variety of non-trivial cases. There is also an exact algorithm that can take advantage of certain Bayesian network structures to compute it in tractable time \cite{Chen:2013tw}, but this method may break down for extreme value thresholds and Bayesian networks that do not have highly independent sets of unobserved nodes.
+Though this is a well-defined metric, it is intractable to compute \cite{Chen:2013tw}. The summation requires iterating over all possible combinations of missing data which is an exponentially large search space. Despite this challenge, there are algorithms to approximate it based on statistical bounds on its value \cite{Choi:2012id}. The drawback here is that such bounds can be weak under depending on the structure of the network. Thus, classifier accuracy might have to suffer to make this approximation more tight. There is also an exact algorithm that can take advantage of certain Bayesian network structures to compute it in tractable time \cite{Chen:2013tw}, but this method may break down for extreme value thresholds and Bayesian networks that do not have highly independent sets of unobserved nodes.
 
 \subsection{Incompleteness Score}
 I propose a new method to compute an approximation of the SDP based on monte-carlo simulations. This is done by approximating the intractable sum with a sampling scheme.
@@ -29,7 +29,7 @@ I propose a new method to compute an approximation of the SDP based on monte-car
 Completeness = \frac{1}{N}\sum_{i =1 }^{N}\mathbb{I}\left[D(\mathbf{O};T) \neq D(\mathbf{u^{(i)}},\mathbf{O};T)\right]
 \end{align}
 
-Equation \ref{incompleteness_score} is the estimated probability that the current decision will change given new information. I will refer to this value as the incompleteness score. In this context, a lower value of the incompleteness score means the report is more complete. We compute it with algorithm \ref{algorithm:incompleteness}.
+Equation \ref{incompleteness_score} is the estimated probability that the current decision will change given new information. I will refer to this value as the incompleteness score. In this context, a lower value of the incompleteness score means the report is more complete. We compute it with algorithm \ref{algorithm:incompleteness} shown below.
 
 
 \begin{algorithm}[h]

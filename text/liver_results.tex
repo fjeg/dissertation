@@ -50,8 +50,13 @@ For a more granular comparison of which semantic features were well-predicted, w
 
 
 \subsection{Semantic Features of Interest}
-Using the LASSO classifier, several semantic features were shown to be well predicted given computation features. Five were found to have an AUC greater than 0.95: water density, homogeneous retention, non-enhancing, heterogenous, and homogenous.
+Using the LASSO classifier, several semantic features were shown to be well predicted given computation features. Five were found to have an AUC greater than 0.95: water density, homogeneous retention, non-enhancing, heterogenous, and homogenous. This is likely due to the fact that these descriptors are based on enhancement signal, which is represented as intensity in the image.
+The nature of contrast-enhanced CT means that intensity-based features have the highest signal-to-noise.
+
 Conversely, four semantic features were shown to have an AUC under 0.6: multiple lesions 1-5, round, normal perilesional tissue, and ovoid.
+Most of these descriptors describe concepts that are associated with the lesion of interest, but not actually directly measurable by looking only at the lesion.
+The difficulty of shape features round and ovoid likely due to the subjectivity of differentiating these two concepts.
+Namely, they would not pass the decision-theoretic clarity test.
 
 \subsection{Computational Feature Analysis}
 Computational features were fitted to each semantic feature vector using the LASSO model. Each fit produced a 431-dimensional set of weights for the computational features. The L1 norm regularization in the model imposes a sparse weight selection; most features have zero weight. To quantify the model complexities, we fit a lasso model to each semantic feature group and counted the number of non-zero coefficients. This corresponds to the number of relevant computational features in each semantic feature group. On average, each semantic feature only employed 12.6 ($\pm$ 4.3) computational features. Moreover, of the entire set of 431 computational features, only 126 computational features had non-zero for any semantic feature vector.

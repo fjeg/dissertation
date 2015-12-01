@@ -39,19 +39,20 @@ Yet, \citeA{Reiner:2009ib} states that ``to date, one could argue that effective
 This insight is a novel contribution to the field of radiological decision support.
 
 
-
 \section{Radiology reporting}
 The radiology report conveys the radiologist's findings, interpretation of these findings, and suggested patient management \cite{Langlotz:2015vq}.
 It is also the primary form of communication of this information to referring clinicians or patients \cite{Sistrom:2005cx}.
 Given that communication breakdowns constitute 80\% of medical malpractice lawsuits \cite{Levinson:1994ko}, and radiological reports are legally admissible court documents \cite{Oppenheim:2012tq}, the community has made considerable effort to improve reports \cite{Langlotz:2015vq}.
+This has uncovered key tenets of report quality: \textbf{correctness} of findings within the image, \textbf{completeness} of the description of such findings, and \textbf{consistency} of report findings with diagnosis \cite{Johnson:2004kh, HaraldO:2004hi, Reiner:2006fa}. 
+Correctness means that the observations made by the radiologist accurately reflect the content in the image. 
+Completeness means all necessary information about the image is contained in the report. 
+Consistency means that the information in the report is concordant with the diagnosis and/or decision being made.
 
-* errors in reports
-* efforts to resolve them via terminology
-*where they fall short
-
-Efforts to improve terminology 
-The Breast Imaging Reporting and Data System (BI-RADS) successfully standardized the language and assessment guidelines for mammography \cite{Liberman:ws,Langlotz:2009fn,Burnside:2009ki}.
+Efforts to improve upon consistency and clarity of report \emph{language} have seen considerable success.
+The Breast Imaging Reporting and Data System (BI-RADS) standardized the language and assessment guidelines for mammography \cite{Liberman:ws,Langlotz:2009fn,Burnside:2009ki}.
 RadLex is an effort to extend this work to all radiological domains by defining a standard radiological lexicon \cite{Langlotz:2006jn}.
+Adoption of these measures allows for reduction in communication of errors in syntax.
+
 Beyond terminology, there is a strong push to create \emph{structured reports} that standardize report format and organization \cite{Langlotz:2009dd,Reiner:2009ib}.
 Structured reports not only can improve communication, but they allow for computability of the report information beyond the constraints of free-text documents.
 Unfortunately, structured reporting is not without its drawbacks.
@@ -59,10 +60,10 @@ It requires new software to implement into the clinical work flow which is costl
 More importantly, structured report creation is time-intensive and imposes distractions in the traditional radiological work flow, directly interfering with timeliness \cite{Weiss:2008er}.
 Despite these shortcomings, structured reporting is widely seen as the future of radiological reporting \cite{Langlotz:2015vq}.
 
-Both standardized terminology and structured reporting are solid steps to improving the language and format of the report, but they do not go far enough to improve the actual information content in the report.
-Several reviews of medical practitioners identify key tenets of report quality that are not addressed by current reporting tools: \textbf{correctness} of findings within the image, \textbf{completeness} of the description of such findings, and \textbf{consistency} of report findings with diagnosis \cite{Johnson:2004kh, HaraldO:2004hi, Reiner:2006fa}.
-In the framework of the semiotic triangle, we need to go beyond tools to simply enforce syntax; we need to create methods to improve the \emph{semantic} meaning behind concepts in the report \cite{Mead:2006wm}.
-I put forth that decision support systems can provide this level of analysis. 
+While standardized terminology and structured reporting improve the language and format of the report, they do not improve the content within the report.
+Specifically, they do not improve upon correctness, completeness, and consistency of report information.
+In the framework of the semiotic triangle (aka the meaning triangle), we need to go beyond tools to simply enforce syntax; we need to create methods to improve the \emph{semantic} meaning behind concepts in the report \cite{Mead:2006wm}.
+I contend that decision support systems can provide this level of analysis. 
 
 
 \section{Providing decision support during reporting time}
@@ -75,13 +76,13 @@ I put forth that decision support systems can provide this level of analysis.
 	
 	\item[Does improving the report improve diagnostic performance?] \hfill \\
 	There are no studies showing that improving the content of the radiological report can actually improve the diagnostic performance of the physician. If we implement new methods to improve the report, will they have any effect on the radiologist's outcome? Otherwise, are we needlessly burdening radiologists with technology to fix reporting for its own sake?
-		
 \end{description}
 
+Answering these questions will lead to an understanding of how reporting and decision support play a role in radiologist performance, and thus, help me answer the core principles of my hypothesis.
 
 \subsection{Specific Aims}
 
-I answered the hypothesis and questions above by completing the follow three specific aims:
+I address the hypothesis and questions above by completing the follow three specific aims:
 
 \begin{enumerate}
 	\item \textbf{Developed methods to assess completeness and correctness of radiology reports}
@@ -94,7 +95,7 @@ I answered the hypothesis and questions above by completing the follow three spe
 	
 	\item \textbf{Developed framework to provide feedback to radiologist to ensure consistency between report and diagnosis, improving diagnostic performance}
 	
-	I developed a framework for providing feedback to radiologists to improve their reports and show that this framework can improve the performance of existing decision support systems.
+	I developed a framework for providing feedback to radiologists to close the gap between report content and diagnosis via enforcing correctness and completeness. I show that this framework can improve the performance of existing decision support systems.
 \end{enumerate}
 
 \subsection{Methodology}
@@ -106,23 +107,34 @@ I answered the hypothesis and questions above by completing the follow three spe
 	\label{fig:fasr_diagram}
 \end{figure}
 
-I propose Fast Adaptive Structured Reporting (FASR), a real-time decision support system that provides feedback to radiologists as they generate their reports. This system enables the translation of decision support systems into clinical practice to benefit patient care. To do so, it plugs directly into the existing reporting work flow and performs analysis in parallel to the radiologist.
+I propose Fast Adaptive Structured Reporting (FASR), a real-time decision support system that provides feedback to radiologists as they generate their reports. 
+This system enables the translation of decision support systems into clinical practice to benefit patient care. 
+To do so, it plugs directly into the existing reporting work flow and performs analysis in parallel to the radiologist.
 
-Figure \ref{fig:fasr_diagram} shows the work flow of the FASR system. An image is sent to a radiologist who identifies an abnormality and delineates it. Then, while the radiologist creates the structured report, the computer analyzes the image. When the radiologist finishes their report, the system will compare the radiologist's output to its predicted output. If they disagree, it triggers a warning that a descriptor may be incomplete. Upon finishing this check, FASR then looks at the information content of the radiology report in conjunction with the diagnosis made by the radiologist. Should the information content of the report lack a complete description of the image phenotype the system will alert the radiologist. Finally, it checks if there is consistency between the image descriptors and diagnosis. If they are discordant, a feedback system requests more information of the radiologist to clarify the diagnosis.
+Figure \ref{fig:fasr_diagram} shows the work flow of the FASR system. 
+An image is sent to a radiologist who identifies an abnormality and delineates it. 
+Then, while the radiologist creates the structured report, the computer analyzes the image. 
+When the radiologist finishes their report, the system will compare the radiologist's imaging observations to those of the system.
+If they disagree, it triggers a warning that a descriptors used by the radiologist may be incorrect. 
+Upon finishing this check, FASR then looks at the information content of the radiology report in conjunction with the diagnosis made by the radiologist.
+Should the information content of the report lack a complete description of the image the system will alert the radiologist.
+Finally, it checks if there is consistency between the image descriptors and diagnosis. 
+If they are discordant, a feedback system requests more information of the radiologist to clarify the diagnosis.
 
 \subsection{Key Results}
 
-I conducted several studies to develop, implement, and evaluate the main components in the FASR system. Here I present the key results, with more details in chapters 3, 4, and 5. 
+I conducted several studies to develop, implement, and evaluate the main components in the FASR system. 
+Here I present the key results, with more details in chapters 3, 4, and 5. 
 
 \begin{description}
 	\item[Can computational methods correct report observations?] \hfill \\
-	I posed this task as a supervised classification problem to predict the radiologist observations about liver lesions in CT scans. I show that it is possible to accurately predict salient report observations, with a mean misclassification rate of $0.144\pm0.09$ and AUC of $0.816\pm0.141$ across 30 different observation tasks. These results suggest that it is feasible to use computational image analysis as a ``second reader'' for images.
+	I posed this task as a supervised classification problem to predict the radiologist observations about liver lesions in CT scans. I show that it is possible to accurately predict report observations, with a mean misclassification rate of $0.144\pm0.09$ and AUC of $0.816\pm0.141$ across 30 different observation tasks. These results suggest that it is feasible to use computational image analysis as a ``second reader'' for images.
 	
 	\item[How do we measure the completeness of reporting content?] \hfill \\
-	I used a decision-theoretic approach to quantify completeness of information. I do so by defining \emph{incompleteness score} as the probability that the clinical decision changes if missing information in the report were to be observed. I calculated this value on 3,695 mammography reports, and found that the incompleteness score was ~10x higher for reports with errors (incompleteness = 0.072) than reports that were correct (incompleteness = 0.0079). These results are the first to show that poor reporting is indicative of diagnostic error.
+	I used a decision-theoretic approach to quantify completeness of information in radiology reports. I do so by defining \emph{incompleteness score} as the probability that the clinical decision changes if missing information in the report were to be observed. I calculated this value on 3,695 mammography reports, and found that the incompleteness score was ~10x higher for reports when the radiologist diagnosis did not match ground truth of malignancy. Incompleteness score for erroneous studies was 0.072 compared to 0.0079 for correctly diagnosed cases. These results are the first to show that poor reporting is indicative of diagnostic error.
 	
 	\item[Does enforcing consistency improve diagnostic performance?] \hfill \\
-	I developed a framework that enforces consistency between report content and diagnosis by estimating the accuracy of follow-up decisions given current observations, and requesting more observations if there is a discrepancy between the two. I evaluate this framework in a set of generated mammography reports by using it to request observations from simulated radiologists who provide feedback. I show that a decision support system that intelligently requests a subset of meaningful observations can achieve better performance (accuracy = 0.936, mean observations = 4.0) than a system that has access to \emph{all} possible observations (accuracy = 0.921, mean observations = 20). This result shows that efficient reporting is not only achievable but actually more desirable with respect to performance.
+	 I developed a framework to improve report quality that enforces consistency between report content and diagnosis by estimating the accuracy of follow-up decisions given current observations, and requesting more observations if there is a discrepancy between the two. I evaluate this framework in a set of generated mammography reports. The framework requests observations from simulated radiologists who return the ground truth value of the requested descriptor. It then decides whether to continue requesting more observations, or to return the diagnosis given the current state of information in the report. I show that a decision support system that requests a subset of meaningful observations can achieve better performance (accuracy = 0.936, mean observations = 4.0) than a system that has access to \emph{all} possible observations (accuracy = 0.921, mean observations = 20). This result shows that efficient reporting is not only achievable but actually more desirable with respect to performance. This is the first to demonstrate how quality of report content is more information than the quantity of information in the report.
 \end{description}
 
 \section{Summary of contributions}
@@ -141,6 +153,7 @@ This work demonstrates contributions to our understanding of reporting in radiol
 	\item Showed how to perform semantic annotations of images by extracting high dimensionality features and using regularized models for prediction.
 	\item Developed a new Monte-Carlo algorithm to approximate the computationally intractable same-decision probability measure in Bayesian networks.
 	\item Formalized a framework for delivering feedback in decision-support systems that allows for evaluation based on diagnostic performance.
+	\item Developed methods to identify decision-theoretic completeness in classification systems and criteria to return classifications under partial information using this completeness.
 \end{itemize}
 
 
