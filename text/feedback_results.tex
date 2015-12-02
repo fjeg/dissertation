@@ -1,39 +1,66 @@
-We evaluated the performance of selection and stop criteria both independently and jointly. Our results show that optimizing either function can provide significant gains in the accuracy of decision-support systems. They also reveal that jointly optimizing these criteria (i.e. developing selection criteria specifically to minimize stop critieria) is not necessarily the best way to improve overall classification accuracy.
+We evaluated the performance of selection and stop criteria both independently and jointly.
+Our results show that optimizing either function can provide significant gains in the accuracy of decision-support systems.
+They also reveal that jointly optimizing these criteria (i.e. developing selection criteria specifically to minimize stop criteria) is not necessarily the best way to improve overall classification accuracy.
 
 \subsection{Selection criteria and performance}
-We compared three different types of selection criteria: Random, Maximize Mutual Information (abbreviated as \emph{mutual information}), and Minimize Cross-Entropy (abbreviated as \emph{optimal}). We measured how each of these selection criteria affect the classifier estimates of probability of malignancy, stop criteria scores, binary classification performance, and ranking importance of BI-RADS descriptors. 
-All three selection criteria start with zero descriptors and end will all descriptors, which means they begin and end with the same performance values. As a result, selection criteria will only determine the intermediary path between the first and final end point. Of particular interest is the final endpoint which is the previously published performance of the decision-support system \cite{Gimenez:2014tr,Burnside:2009br}. We will refer to this as the final performance value.
+We compared three different types of selection criteria: Random, Maximize Mutual Information (abbreviated as \emph{mutual information}), and Minimize Cross-Entropy (abbreviated as \emph{optimal}).
+We measured how each of these selection criteria affect the classifier estimates of probability of malignancy, stop criteria scores, binary classification performance, and ranking importance of BI-RADS descriptors.
 
-\subsubsection{Effect of selection criteria on probability of malignancy}
+All cases studied start with zero observed descriptors and finish with all 20 descriptors observed.
+Classification accuracy of the system with zero descriptors is $2.49\%$, and reaches $92.06\%$ with all observed descriptors.
+Accuracy with any number of features between zero and 20 is dependent on the selection/stop criterion
+We compare accuracy using some intermediary stop criterion to the results achieved by using all descriptors, as that is the prior published performance of this decision support system \cite{Gimenez:2014tr,Burnside:2009br}.
 
+\subsection{Effect of selection criteria on probability of malignancy}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{probability_path.pdf}
-	\caption[Effect of selection criteria on probability of malignancy]{Effect of different selection criteria on the posterior probability of malignancy. The x-axis represents how many observations requested of the radiologist, and the y-axis represents posterior probability. Benign and malignant lesions are plotted separately to show how more information increases the probability of each. }
+	\caption[Effect of selection criteria on probability of malignancy]{Effect of different selection criteria on the posterior probability of malignancy. The x-axis represents how many observations are requested of the radiologist, and the y-axis represents posterior probability of malignancy. Benign and malignant lesions are plotted separately to show how more information increases the probability of each. The probabilities achieve their asymptotic maximums at 0.6 due to the variability in descriptor usage to train these models. }
 	\label{fig:feedback_mammo}
 \end{figure}
 
 
-Perfect selection criteria should select descriptors that best differentiate malignant and benign masses as quickly as possible. The most obvious metric for this is the decision-support system's posterior probability of malignancy.  A perfect feedback system would maximize the separation between these two groups in as few features as possible.
+Perfect selection criteria should select descriptors that best differentiate malignant and benign masses as quickly as possible.
+The most obvious metric for this is the decision-support system's posterior probability of malignancy.
+A perfect feedback system would maximize the separation between these two groups using as few features as possible.
 
-We measure this value for every lesion at each iteration of feedback. Figure \ref{fig:feedback_mammo} shows the mean posterior probability of malignancy stratified by lesion malignancy. We see that all three selection criteria do well in driving these posterior probabilities in the correct directions. All three do a good job of driving probability of benign masses to zero quickly. For malignant masses, there is a striking difference the rates that each method reaches maximal probability of malignancy. Random selection has a linear path towards the maximum probability while mutual information has an inverted exponential path. Optimal selection reaches maximal probability the fastest and exceeds the posterior probability of malignancy given all features.
+We measure this value for every lesion that a radiologist evaluates at each iteration of feedback.
+Figure \ref{fig:feedback_mammo} shows the mean posterior probability of malignancy stratified by lesion malignancy.
+We see that all three selection criteria do well in driving these posterior probabilities in the correct directions.
+All three do a good job of driving probability of benign masses to zero quickly.
+For malignant masses, there is a striking difference the rates that each method reaches maximal probability of malignancy.
+Random selection has a linear path towards the maximum probability while mutual information has an inverted exponential path.
+Optimal selection reaches maximal probability the fastest and exceeds the posterior probability of malignancy given all features.
 
-\subsubsection{Effect of selection criteria on stop criteria scores}
+\subsection{Effect of selection criteria on stop criteria scores}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{score_path.pdf}
-	\caption[Effect of selection criteria on stop criteria scores]{Effect of different selection criteria on scores returned by stop criteria. The x-axis represents how many observations requested of the radiologist, and the y-axis represents each of the stop criteria scores.}
+	\caption[Effect of selection criteria on stop criteria scores]{Effect of different selection criteria on stop criteria scores. The left plot shows the selection criteria's effect on the incompleteness score and the right graph shows their effect on the entropy. The x-axis represents how many observations requested of the radiologist, and the y-axis represents each of the stop criteria scores.}
 	\label{fig:feedback_score_path}
 \end{figure} 
 
-All the stop criteria rules we evaluate are based on the concept of driving some score below a defined threshold. As a result, selection criteria should seek to minimize these stop criteria scores in order to stop requesting redundant information. Figure \ref{fig:feedback_score_path} shows the effect of the three different selection criteria on the two stop criteria by plotting the mean stop score as a function of number of descriptors selected.
+All the stop criteria rules we evaluated were thresholded score functions; they involve driving a numeric measure of confidence in the diagnosis below a defined threshold.
+As a result, selection criteria should seek to minimize these stop criteria scores in order to stop requesting redundant information.
+Figure \ref{fig:feedback_score_path} shows the effect of the three different selection criteria on the two stop criteria by plotting the mean stop score as a function of number of descriptors selected.
 
 \emph{Effect on incompleteness}:
-While all three methods drive the incompleteness score down with a single request, their behavior diverges quickly. Random feedback requests descriptors that make the report \emph{less} complete. This is due to the fact that descriptors are highly correlated, and observing irrelevant information early on increases the impact of unobserved relevant descriptors. Mutual information has a linear decrease in the incompleteness score, though th effect is small. Optimal selection drops the incompleteness score drastically, showing more complete reports with only a subset of total descriptors. This is driven by the optimal selection criteria driving probabilities towards 0 or 1. The further this posterior probability is from the 2\% decision threshold, the less likely new descriptors can have a large enough effect on the probability to cross this decision boundary.
+While all three methods drive the incompleteness score down with a single request for the first observation, their behavior diverges quickly.
+Random feedback requests descriptors that make the report \emph{less} complete as evidence by the incompleteness score growing after the first requests.
+This is due to the random selection introducing noisy observations that increase uncertainty in the diagnosis.
+Mutual information has a linear decrease in the incompleteness score as more features are requested, though the effect is small.
+Optimal selection drops the incompleteness score drastically, showing more complete reports with only a subset of total descriptors.
+This is driven by the optimal selection criteria driving probabilities towards 0 or 1.
+The further this posterior probability is from the 2\% decision threshold, the less likely new descriptors can have a large enough effect on the probability to cross this decision boundary.
 
 \emph{Effect on entropy}:
-Entropy is a submodular function which means it always decrease when given new information \emph{in expectation}. This is described by the principle that ``\emph{information never hurts}'' \cite{Nemhauser:1978ck,Krause:2005tr}. Such behavior is evident in random and mutual information selection, which always decrease entropy of classification, though mean entropy using mutual information selection is always lower than random selection outside of the trivial cases using 0 and all 20 features. Optimal feedback achieves entropy below the theoretical minimum due to the fact that it ``cheats'' and looks ahead at descriptors which most minimize this entropy. As a result, it violates the property of submodularity since we do not calculate the next feature in expectation.
+Entropy is a submodular function meaning its value always decreases \emph{in expectation} when given new information to the system.
+This is described by the principle that ``\emph{information never hurts}'' \cite{Nemhauser:1978ck,Krause:2005tr}.
+Such behavior is evident in random and mutual information selection, which show monotonic decreasing of entropy of classification.
+Despite the similar behavior, the mean entropy using mutual information selection is always lower than random selection outside of the trivial cases using 0 and all 20 features.
+Optimal feedback achieves entropy below the theoretical minimum due to the fact that it ``cheats'' (i.e. looks ahead) at descriptors which most minimize this entropy.
+As a result, it violates the property of submodularity since we do not calculate the next feature in expectation.
 
 
  \subsubsection{Effect of selection criteria on classification performance}
@@ -82,8 +109,6 @@ Optimal selection generally follows a similar early path as mutual information, 
  
  
 \subsection{Performance of (Selection, Stop) criteria pairs}
-
-\subsubsection{Number of descriptors selected}
 
 \begin{figure}[hb]
 	\centering
