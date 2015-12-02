@@ -15,7 +15,7 @@ Radiologists are presented with functional and/or anatomical images in order to 
 Though a seemingly straightforward task, the field is fraught with error and variability in performance \cite{Fitzgerald:2001hn} stemming from inadequate imaging techniques \cite{Berlin:1996ib}, poor background knowledge \cite{Berlin:1996ei}, perceptual errors \cite{Berlin:1_mkt9li}, and errors in judgment \cite{Berlin:1996vw}.
 Improved work flow and modality research aim to improve imaging techniques \cite{Noumeir:2006cb}, digital imaging and picture archiving and communications systems resolve problems with information transfer to the clinician \cite{Strickland:2000cv,Bryan:1999kn}, computer-aided detection systems aid with identification of lesions in images \cite{Oliver:2010fm}, but to date, there are no wide-spread, commercial tools for improving interpretation.
 Errors in judgment are especially pernicious because they are inherent to the subjectivity of qualitative decision-making.
-Furthermore, they present a severe detriment to the field; \citeA{Robinson:1997uq} went so far as to state that ``errors and variations in interpretation now represent the weakest aspect of clinical imaging'' and declared such issues ``Radiology's Achilles' heel''. 
+Furthermore, they present a severe detriment to the field; \citeA{Robinson:1997uq} went so far as to state that ``errors and variations in interpretation now represent the weakest aspect of clinical imaging'' and declared such issues ``Radiology's Achilles' heel.'' 
 This is not to say that radiologists are the only doctors faced with these issues, as the now infamous Institute of Medicine report \emph{To Err is Human: Building a Safer Health System} revealed a striking amount of poor patient outcomes are a result of medical error \cite{Anonymous:2000va}.
 A prominent recommendation from this study is the use of automation and computation to improve upon standard of care via decision support systems.
 
@@ -74,7 +74,7 @@ I contend that decision support systems can provide this level of analysis.
 	\item[How can we improve the quality of the radiological report?] \hfill \\
 	Though I have described prior work that aims to improve the terminology and format of the report, there is much to be done to improve upon the \emph{content} of the report. What can we do to improve upon this information? How can we actually implement such solutions?
 	
-	\item[Does improving the report improve diagnostic performance?] \hfill \\
+	\item[Does improving the report improve diagnostic performance of the radiologist?] \hfill \\
 	There are no studies showing that improving the content of the radiological report can actually improve the diagnostic performance of the physician. If we implement new methods to improve the report, will they have any effect on the radiologist's outcome? Otherwise, are we needlessly burdening radiologists with technology to fix reporting for its own sake?
 \end{description}
 
@@ -82,7 +82,7 @@ Answering these questions will lead to an understanding of how reporting and dec
 
 \subsection{Specific Aims}
 
-I address the hypothesis and questions above by completing the follow three specific aims:
+I address the hypothesis and questions above by addressing the following three specific aims:
 
 \begin{enumerate}
 	\item \textbf{Developed methods to assess completeness and correctness of radiology reports}
@@ -91,7 +91,7 @@ I address the hypothesis and questions above by completing the follow three spec
 	
 	\item \textbf{Evaluated these methods in two important radiological domains (mammography and liver CT)}
 	
-	I showed that the correctness metric has good accuracy in automatically annotating radiological images. I also show that the completeness metric is clinically significant by correlating it with error in interpretation.
+	I showed that the correctness metric has good accuracy in automatically annotating radiological images. I also showed that the completeness metric is clinically significant by correlating it with error in interpretation.
 	
 	\item \textbf{Developed framework to provide feedback to radiologist to ensure consistency between report and diagnosis, improving diagnostic performance}
 	
@@ -107,7 +107,7 @@ I address the hypothesis and questions above by completing the follow three spec
 	\label{fig:fasr_diagram}
 \end{figure}
 
-I propose Fast Adaptive Structured Reporting (FASR), a real-time decision support system that provides feedback to radiologists as they generate their reports. 
+I describe the Fast Adaptive Structured Reporting (FASR) system, a real-time decision support system that provides feedback to radiologists as they generate their reports. 
 This system enables the translation of decision support systems into clinical practice to benefit patient care. 
 To do so, it plugs directly into the existing reporting work flow and performs analysis in parallel to the radiologist.
 
@@ -150,12 +150,12 @@ This work demonstrates contributions to our understanding of reporting in radiol
 \subsection{Informatics Contributions}
 
 \begin{itemize}
-	\item Showed how to perform semantic annotations of images by extracting high dimensionality features and using regularized models for prediction.
-	\item Developed a new Monte-Carlo algorithm to approximate the computationally intractable same-decision probability measure in Bayesian networks.
-	\item Formalized a framework for delivering feedback in decision-support systems that allows for evaluation based on diagnostic performance.
-	\item Developed methods to identify decision-theoretic completeness in classification systems and criteria to return classifications under partial information using this completeness.
+	\item I showed how to perform semantic annotations of images by extracting high dimensionality features and using regularized models for prediction.
+	\item I developed a new Monte-Carlo algorithm to approximate the computationally intractable same-decision probability measure in Bayesian networks.
+	\item I formalized a framework for delivering feedback in decision-support systems that allows for evaluation based on diagnostic performance.
+	\item I developed methods to identify decision-theoretic completeness in classification systems and criteria to return classifications under partial information using this completeness.
 \end{itemize}
 
 
 \section{Guide for the reader}
-This dissertation covers the novel methods I have developed for the FASR system to improve correctness, completeness, and consistency in radiology reports. The following chapters go into detail about the problems, solutions, and evaluations I have described in this introduction. \textbf{Chapter 2} provides a background of challenges in radiology and prior methods to attack them using decision support. These works have been extremely valuable and influential for my own methodological development. In \textbf{chapter 3} I describe my method to perform automatic annotation of images with radiological descriptors and then describe how it can be used to correct mistakes in reports. In \textbf{chapter 4} I define a new measure for information content in radiology reports to quantify how complete they are and provide a new algorithm to compute this score. I also show some clinical consequences of incomplete reporting. In \textbf{chapter 5} I formulate a framework to provide feedback to radiologists when we have discovered errors in their reports. I show that this framework can significantly improve computer-aided diagnostic systems by incorporating human feedback. Finally, in \textbf{chapter 6} I provide some concluding remarks, limitations, and future work for this field.
+This dissertation covers the novel methods I have developed for the FASR system to improve correctness, completeness, and consistency in radiology reports. The following chapters go into detail about the problems, solutions, and evaluations I have described in this introduction. \textbf{Chapter 2} provides a background of challenges in radiology and prior methods to attack them using decision support. These works have been extremely valuable and influential for my own methodological development. In \textbf{Chapter 3} I describe my method to perform automatic annotation of images with radiological descriptors and then describe how it can be used to correct mistakes in reports. In \textbf{Chapter 4} I define a new measure for information content in radiology reports to quantify how complete they are and provide a new algorithm to compute this score. I also show some clinical consequences of incomplete reporting. In \textbf{Chapter 5} I formulate a framework to provide feedback to radiologists when we have discovered errors in their reports. I show that this framework can significantly improve computer-aided diagnostic systems by incorporating human feedback. Finally, in \textbf{Chapter 6} I provide some concluding remarks, limitations, and future work for this field.

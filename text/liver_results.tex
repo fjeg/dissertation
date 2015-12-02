@@ -1,9 +1,13 @@
-The experiment showed that LASSO classification is superior to ordinary logistic regression for all classification tasks. It also uncovered several ways to improve upon results by examining the behavior of these models.
+The experiment showed that LASSO classification is superior to ordinary logistic regression for all classification tasks.
+It also uncovered several ways to improve upon results by examining the behavior of these models.
 
 \subsection{Classifier Performance}
-The difference in classifier performance was statistically significant using both AUC and MCR as evaluation metrics (pauc = 7.2*10-10 and pmcr = 6.2*10-4). Both metrics indicated that $L_1$ regularized logistic regression is a stronger classifier for this task. Table \ref{table:liver_auc_mcr} shows the mean and standard deviations of the AUC and MCR.
+The difference in classifier performance was statistically significant using both AUC and MCR as evaluation metrics (pauc = 7.2*10-10 and pmcr = 6.2*10-4).
+Both metrics indicated that $L_1$ regularized logistic regression is a better classifier for this task.
+Table \ref{table:liver_auc_mcr} shows the mean and standard deviations of the AUC and MCR.
 
-For a more granular comparison of which semantic features were well-predicted, we looked at the AUC and MCR of each individual features. Figure \ref{fig:liver_auc} shows the area under the ROC curve (AUC) and figure \ref{fig:liver_mcr} shows the misclassification rate (MCR) of logistic regression with and without $L_1$ regularization.
+For a more granular comparison of which semantic features were well-predicted, we looked at the AUC and MCR of each individual features.
+Figure \ref{fig:liver_auc} shows the area under the ROC curve (AUC) and figure \ref{fig:liver_mcr} shows the misclassification rate (MCR) of logistic regression with and without $L_1$ regularization.
 
 \begin{table}[h!]
 	\centering
@@ -50,7 +54,9 @@ For a more granular comparison of which semantic features were well-predicted, w
 
 
 \subsection{Semantic Features of Interest}
-Using the LASSO classifier, several semantic features were shown to be well predicted given computation features. Five were found to have an AUC greater than 0.95: water density, homogeneous retention, non-enhancing, heterogenous, and homogenous. This is likely due to the fact that these descriptors are based on enhancement signal, which is represented as intensity in the image.
+Using the LASSO classifier, several semantic features were shown to be well predicted given computation features.
+Five were found to have an AUC greater than 0.95: water density, homogeneous retention, non-enhancing, heterogenous, and homogenous.
+This is likely due to the fact that these descriptors are based on enhancement signal, which is represented as intensity in the image.
 The nature of contrast-enhanced CT means that intensity-based features have the highest signal-to-noise.
 
 Conversely, four semantic features were shown to have an AUC under 0.6: multiple lesions 1-5, round, normal perilesional tissue, and ovoid.
@@ -59,6 +65,13 @@ The difficulty of shape features round and ovoid likely due to the subjectivity 
 Namely, they would not pass the decision-theoretic clarity test.
 
 \subsection{Computational Feature Analysis}
-Computational features were fitted to each semantic feature vector using the LASSO model. Each fit produced a 431-dimensional set of weights for the computational features. The L1 norm regularization in the model imposes a sparse weight selection; most features have zero weight. To quantify the model complexities, we fit a lasso model to each semantic feature group and counted the number of non-zero coefficients. This corresponds to the number of relevant computational features in each semantic feature group. On average, each semantic feature only employed 12.6 ($\pm$ 4.3) computational features. Moreover, of the entire set of 431 computational features, only 126 computational features had non-zero for any semantic feature vector.
+Computational features were fitted to each semantic feature vector using the LASSO model.
+Each fit produced a 431-dimensional set of weights for the computational features.
+The L1 norm regularization in the model imposes a sparse weight selection; most features have zero weight.
+To quantify the model complexities, we fit a lasso model to each semantic feature group and counted the number of non-zero coefficients.
+This corresponds to the number of relevant computational features in each semantic feature group.
+On average, each semantic feature employed only 12.6 ($\pm$ 4.3) computational features.
+Moreover, of the entire set of 431 computational features, only 126 computational features had non-zero for any semantic feature vector.
 
-The 20 features with highest sum of weight magnitudes were categorized according to their associated algorithms. Daubechies Wavelets, Edge Sharpness, Gabor Transform, and the Local Area Invariant Descriptor were found to be the most informative feature groups.
+The 20 features with highest sum of weight magnitudes were categorized according to their associated algorithms.
+Daubechies Wavelets, Edge Sharpness, Gabor Transform, and the Local Area Invariant Descriptor were found to be the most informative feature groups.
