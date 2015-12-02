@@ -1,12 +1,19 @@
-This work describes a framework to elicit feedback from radiologists in order to improve upon their reports. It introduces the notion of loosely coupled selection and stopping criteria for feedback in decision support systems. Under this system we show that reports can be created with a small subset of the total descriptors without sacrificing, even possibly improving, diagnostic performance.
+This work describes a framework to elicit feedback from radiologists in order to improve upon their reports.
+It introduces the notion of loosely coupled selection and stopping criteria for feedback in decision support systems.
+Under this system we show that reports can be created with a small subset of the total descriptors without sacrificing, even possibly improving, diagnostic performance.
 
-\subsection{Benefits and impact of this feedback frameworks}
+\subsection{Benefits and impact of this feedback framework}
 %\subsection{BI-RADS descriptors are not created equal}
 %random selection -> nostop means that there is a high inequality of information content in birdas
 %all or none Sorts based on difficulty
 
 \subsubsection{Quality of information trumps quality}
-This feedback system shows that more information is not necessarily helpful in decision-support systems, and the quality of information in a report is more valuable than the quantity. Specifically, \emph{mutual information}and \emph{incompleteness score completeness}achieve the best classification accuracy by eliciting a mean of only 4.0 descriptors, outperforming the decision-support system with all 20 descriptors. Prior studies in the field of active feature-value acquisition make the implicit assumption that more information always improves the performance of a decision-support system. Such systems must then take into account the cost of new information versus their improvement in performance. When new information can actually be detrimental to performance, these methods break down. Though this result might seem counter-intuitive, it follows from the notion of sparse regularization theory that reducing predictive features has strong generalization accuracy.
+This feedback system shows that more information is not necessarily helpful in decision-support systems, and the quality of information in a report is more valuable than the quantity.
+Specifically, \emph{mutual information} and \emph{incompleteness score}achieve the best classification accuracy by eliciting a mean of only 4.0 descriptors, outperforming the decision-support system with all 20 descriptors.
+Prior studies in the field of active feature-value acquisition make the implicit assumption that more information always improves the performance of a decision-support system.
+Such systems must then take into account the cost of new information versus their improvement in performance.
+When new information can actually be detrimental to performance, these methods break down.
+Though this result might seem counter-intuitive, it follows from the notion of sparse regularization theory that reducing predictive features has strong generalization accuracy.
 
 
 \subsubsection{Feedback framework evaluation needs to include selection \emph{and} stop criteria}
