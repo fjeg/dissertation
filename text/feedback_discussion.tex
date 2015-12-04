@@ -1,6 +1,9 @@
 This work describes a framework to elicit feedback from radiologists in order to improve upon their reports.
-It introduces the notion of loosely coupled selection and stopping criteria for feedback in decision support systems.
-Under this system we show that reports can be created with a small subset of the total descriptors without sacrificing, even possibly improving, diagnostic performance.
+It does so by requesting that they describe discrete observations, in the form of image descriptors, that are missing from the report.
+The feedback requesting method works by using the notion of decoupled selection and stopping criteria.
+This decoupling is a novel way to evaluate and optimize classification performance in diagnostic decision support systems.
+Past efforts to elicit feedback have tightly joined these two concepts by making stopping criteria a function of selection criteria or by making selection criteria that directly optimizes stopping criteria.
+Under this new approach, we show that reports can be created with a small subset of the total descriptors without sacrificing, even possibly improving, diagnostic performance.
 
 \subsection{Benefits and impact of this feedback framework}
 %\subsection{BI-RADS descriptors are not created equal}
@@ -9,27 +12,55 @@ Under this system we show that reports can be created with a small subset of the
 
 \subsubsection{Quality of information trumps quality}
 This feedback system shows that more information is not necessarily helpful in decision-support systems, and the quality of information in a report is more valuable than the quantity.
-Specifically, \emph{mutual information} and \emph{incompleteness score}achieve the best classification accuracy by eliciting a mean of only 4.0 descriptors, outperforming the decision-support system with all 20 descriptors.
+Specifically, \emph{mutual information} and \emph{incompleteness score} achieve the best classification accuracy by eliciting a mean of only 4.0 descriptors, outperforming the decision-support system with all 20 descriptors.
 Prior studies in the field of active feature-value acquisition make the implicit assumption that more information always improves the performance of a decision-support system.
 Such systems must then take into account the cost of new information versus their improvement in performance.
 When new information can actually be detrimental to performance, these methods break down.
 Though this result might seem counter-intuitive, it follows from the notion of sparse regularization theory that reducing predictive features has strong generalization accuracy.
+Additionally, in systems with human readers, there is the added noise of them possibly using incorrect descriptors.
+Chapter 3 demonstrates a way to resolve this issue, but barring such preventive measures, we cannot ignore this source of error.
 
 
 \subsubsection{Feedback framework evaluation needs to include selection \emph{and} stop criteria}
-Our system directly measures expected classification performance values given a pair of selection and stopping criteria. Prior work on  optimal test selection \cite{Greiner:2002wr,Madigan:1996cv, Krause:2005tr}, or alternatively stop criteria \cite{Gaag:2011gs} shows compelling results for each realm, but it is difficult to translate these results into clinical significance when these criteria are separated. Furthermore, it is straightforward to evaluate these systems using simple classification performance measures and feature count statistics. Such evaluation would allow for direct comparison of methods in similar domains.
+Our system directly measures expected classification performance values given a pair of selection and stopping criteria.
+Prior work on  optimal test selection \cite{Greiner:2002wr,Madigan:1996cv, Krause:2005tr}, or alternatively stop criteria \cite{Gaag:2011gs} shows compelling results for each realm, but it is difficult to translate these results into clinical significance when these criteria are separated.
+For example, assuming an outcome variable of classification accuracy, evaluation of selection criteria without a stop criteria requires comparison of accuracy as a function of features selected.
+Furthermore, it is straightforward to evaluate these systems using simple classification performance measures and feature count statistics.
+Such evaluation would allow for direct comparison of methods in similar domains.
 
 
 \subsubsection{Selection criteria need not directly optimize stop criteria}
-A takeaway of this experiment is that selection and stop criteria, though extremely influential on each other, do not need to be developed in a joint fashion. Prior work using methods such as same-decision probability \cite{Choi:2012id} and value of information \cite{Heckerman:1992uq} tightly couples these two concepts by developing selection criteria focused on optimizing the stop criteria. In this study, the optimal selection criteria is designed to directly minimize the entropy of the classifier. Thus, we originally hypothesized that this selection/stop criteria pair would perform best. Instead, optimal feedback had best classification accuracy and fewer descriptors selected using the completeness score. This result held even when using mutual information as a selection criteria, which directly minimizes entropy in expectation.
+A takeaway of this experiment is that selection and stop criteria, though extremely influential on each other, do not need to be developed in a joint fashion.
+Prior work using methods such as same-decision probability \cite{Choi:2012id} and value of information \cite{Heckerman:1992uq} tightly couples these two concepts by developing selection criteria focused on optimizing the stop criteria.
+In this study, the optimal selection criteria is designed to directly minimize the entropy of the classifier.
+Thus, we originally hypothesized that this selection/stop criteria pair would perform best.
+Instead, optimal feedback had best classification accuracy and fewer descriptors selected using the completeness score.
+This result held even when using mutual information as a selection criteria, which directly minimizes entropy in expectation.
 
 
 \subsection{Limitations of this study}
-This study is a promising early step for feedback in reporting, but there are several limitations that need to be further researched. First, all the analysis was done in silico; I evaluated both the data set generation and feedback framework using computer simulation. I simulated the data to get a large enough set of fully ``observed'' reports with ground truth values, and I simulated radiologists to provide noise-free observations upon request. Though both cases reduced noise stemming from human error, thus giving me the most insight into the performance of these methods, a study with human involvement is imperative. Another limitation is in limiting the selection criteria to myopic methods. They significantly reduce computational time, allowing for real-time results, but their greedy search nature is not optimal \cite{Nemhauser:1978ck}. Furthermore, myopic selection can select very unrelated descriptors in sequence. This was a shortcoming of the pathfinder system in which the evidence elicited from the pathologist would not follow human reporting patterns \cite{Heckerman:1992ud}. Finally, the accuracy measures shown are strongly driven by non-malignant cases, either false positives or true negatives. This is due to the low prevalence of cancer in mammography screening. I chose not to oversample malignant cases since the decision support system encodes the distribution of malignant and benign reports, but this has the effect of not weighing evidence from malignant reports enough.
+This study is a promising early step for feedback in reporting, but there are several limitations that need to be further researched.
+First, all the analysis was done in silico; I evaluated both the data set generation and feedback framework using computer simulation.
+I simulated the data to get a large enough set of fully ``observed'' reports with ground truth values, and I simulated radiologists to provide noise-free observations upon request.
+Though both cases reduced noise stemming from human error, thus giving me the most insight into the performance of these methods, a study with human involvement is imperative.
+Another limitation is in limiting the selection criteria to myopic methods.
+They significantly reduce computational time, allowing for real-time results, but their greedy search nature is not optimal \cite{Nemhauser:1978ck}.
+Furthermore, myopic selection can select very unrelated descriptors in sequence.
+This was a shortcoming of the pathfinder system in which the evidence elicited from the pathologist would not follow human reporting patterns \cite{Heckerman:1992ud}.
+Finally, the accuracy measures shown are strongly driven by non-malignant cases, either false positives or true negatives.
+This is due to the low prevalence of cancer in mammography screening.
+I chose not to oversample malignant cases since the decision support system encodes the distribution of malignant and benign reports, but this has the effect of not weighing evidence from malignant reports enough.
 
 
 \subsection{Future work}
-We foresee this feedback framework being used in all manner of reporting settings. By quantifying information content in reports and providing feedback to optimize this content, we can ensure that reports have evidence consistent with the diagnosis and treatment decisions made by the clinical practitioner. In that vein, we will begin reader studies to see the effect of these feedback systems on practicing radiologists of several different skill levels. Such work could not only improve the quality of reports but also the quality of radiological decisions.
+By quantifying information content in reports and providing feedback to optimize this content, we can ensure that reports have evidence consistent with the diagnosis and treatment decisions made by the clinical practitioner.
+In that vein, we will begin reader studies to see the effect of these feedback systems on practicing radiologists of several different skill levels.
+Given the results from our previous chapter correlating incomplete results with errors in diagnosis, we have reason to believe that this feedback system have a positive impact on diagnostic errors in mammography.
+Thus, this work could not only improve the quality of reports but also the quality of radiological decisions.
+These methods are not limited to radiology, though.
+Incomplete and poor communication are pervasive problems in all of medicine, and reporting practices are the manifestation of these errors.
+We envision this feedback framework being used in all settings where evidence must be given in conjunction with diagnoses.
+
  
  
 
