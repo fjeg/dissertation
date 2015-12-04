@@ -33,8 +33,13 @@ Studies into deployment of medical decision-support systems help us understand w
 \subsection{Promise of decision support}
 Decision support systems could potentially diminish subjectivity in the interpretation of clinical information using quantitative methods and objective decision points. In addition, it is be possible to directly measure and tune performance in decision support systems; a task that is much more challenging in unassisted human readers. The difference between such systems and radiologists is that this tradeoff in decision support systems is explicitly set as the ``operating point'' (a particular value of sensitivity and the consequent specificity) on the receiver operating characteristic (ROC) curve of the system, which is used to assess and maximize the performance of decision support systems. In probabilistic systems, a threshold solely determines the operating point. This threshold can be interpreted as the minimum probability of cancer that a lesion must exhibit before it is deemed a positive finding (i.e. considered for biopsy). Most radiologists strive to have a fixed operating point, but given the qualitative nature of mammography interpretation, it is not possible for them to know their probabilistic threshold precisely. This makes it difficult to quantify if individual radiologists are practicing too conservatively by setting their threshold low to avoid missing cancers. While it is of utmost importance to detect cancer, an unnecessarily low threshold means more false positive detections. Even if a radiologist were deemed to be practicing too conservatively, it would be difficult to tune performance to practice less aversely.
 
-
-
+\subsection{Unaddressed issues in radiological decision support}
+The decision support systems I describe here all aim to tackle the overarching problem of error in the practice of radiology.
+They focus on the different sources of radiological error in interpretation: detection, diagnosis, and decision making.
+The most important take-away from this prior work is that information in medical images and reports has a strong enough signal for computational analysis to deliver correct analysis.
+But, these systems do not address how to deliver their information to the radiologist in the most impactful manner.
+Few of them can be easily integrated into the radiologists' work flow; none aim to improve the report within this work flow.
+The methods I describe in the next chapters show how decision support can improve completeness, correctness, and consistency of diagnosis in reports, and I show how improving these qualities can improve upon errors in interpretation.
 
 
 

@@ -3,7 +3,7 @@ This work demonstrates contributions to the our understanding of reporting in ra
 \subsection{Radiology contributions}
 
 \begin{description}
-	\item[Automatic annotation and verification of descriptors in liver CT scans] \hfill \\
+	\item[Automatic recognition of radiology observatiosn from image pixel data] \hfill \\
 	I created a system that takes CT scans of the liver and outputs the associated RadLex descriptors. While there have been some systems to annotate images with specific descriptors, I show a general-purpose framework that can annotate \emph{all} descriptors. This is the first such step in creating a completely automated radiological report. I also describe how this system can be used to verify the observations made by a radiologist to evaluate the correctness of their reports
 	
 	\item[Correlated incomplete reports with diagnostic error] \hfill \\
@@ -22,5 +22,5 @@ This work demonstrates contributions to the our understanding of reporting in ra
 	I formulated a new solution to the computation of the same-decision probability via a randomized algorithm. I show that this is possible because of the unique ability to efficiently sample unobserved features from a Bayesian network. This method allows us to compute the same-decision probability in networks of any size or structure to an arbitrary level of error, improving upon prior work in approximation-based or exact-based results.
 	
 	\item[Framework for delivering and evaluating feedback in decision-support systems] \hfill \\
-	I show that decomposing feedback systems into stop and selection criteria allows for a quantitative analysis of decision-support systems with partial information. Furthermore, my evaluation demonstrates that simple feedback methods can have strong performance improvement in decision-support systems even when they violate model assumptions. This is the first such method that combines analysis of selection and stop criteria simultaneously and can open the door to more sophisticated methods in these fields.
+	Decision support systems are dependent on the input evidence provided by the practicing clinician. In most reporting settings, it is burdensome to provide all possible evidence that the decision support system can consume. Thus, these systems must make predictions using some subset of the total universe of input evidence. These tasks require making decisions under partial information. I show that decomposing feedback systems into stop and selection criteria allows for a quantitative analysis of decision support systems with partial information. Furthermore, my evaluation demonstrates that simple feedback methods can have strong performance improvement in decision support systems even when they violate model assumptions. This is the first such method that combines analysis of selection and stop criteria simultaneously and can open the door to more sophisticated methods in these fields.
 \end{description}

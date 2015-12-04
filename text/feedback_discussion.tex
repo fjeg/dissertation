@@ -24,15 +24,22 @@ Chapter 3 demonstrates a way to resolve this issue, but barring such preventive 
 \subsubsection{Feedback framework evaluation needs to include selection \emph{and} stop criteria}
 Our system directly measures expected classification performance values given a pair of selection and stopping criteria.
 Prior work on  optimal test selection \cite{Greiner:2002wr,Madigan:1996cv, Krause:2005tr}, or alternatively stop criteria \cite{Gaag:2011gs} shows compelling results for each realm, but it is difficult to translate these results into clinical significance when these criteria are separated.
-For example, assuming an outcome variable of classification accuracy, evaluation of selection criteria without a stop criteria requires comparison of accuracy as a function of features selected.
-Furthermore, it is straightforward to evaluate these systems using simple classification performance measures and feature count statistics.
-Such evaluation would allow for direct comparison of methods in similar domains.
+
+For example, consider evaluating diagnostic accuracy in a decision support system based on classification.
+Optimizing for selection criteria without a stop criteria requires analysis of accuracy as a function of number features selected.
+The most we can learn from such analysis is an estimate of accuracy when selecting $N$ features.
+A rule that mandates selecting $N$ features simply does not translate to clinical diagnosis.
+Conversely, optimizing stop criteria without selection criteria does not solve the problem of providing feedback to the practitioner.
+It simply tells them to continue making observations until a black-box system is satisfied.
+
+It is straightforward to evaluate these systems with selection and stop criteria using simple classification performance measures and feature count statistics.
+Such evaluation allows for direct comparison of methods in similar domains.
 
 
 \subsubsection{Selection criteria need not directly optimize stop criteria}
 A takeaway of this experiment is that selection and stop criteria, though extremely influential on each other, do not need to be developed in a joint fashion.
 Prior work using methods such as same-decision probability \cite{Choi:2012id} and value of information \cite{Heckerman:1992uq} tightly couples these two concepts by developing selection criteria focused on optimizing the stop criteria.
-In this study, the optimal selection criteria is designed to directly minimize the entropy of the classifier.
+In this study, the optimal selection criteria are designed to directly minimize the entropy of the classifier.
 Thus, we originally hypothesized that this selection/stop criteria pair would perform best.
 Instead, optimal feedback had best classification accuracy and fewer descriptors selected using the completeness score.
 This result held even when using mutual information as a selection criteria, which directly minimizes entropy in expectation.
@@ -40,13 +47,23 @@ This result held even when using mutual information as a selection criteria, whi
 
 \subsection{Limitations of this study}
 This study is a promising early step for feedback in reporting, but there are several limitations that need to be further researched.
-First, all the analysis was done in silico; I evaluated both the data set generation and feedback framework using computer simulation.
-I simulated the data to get a large enough set of fully ``observed'' reports with ground truth values, and I simulated radiologists to provide noise-free observations upon request.
-Though both cases reduced noise stemming from human error, thus giving me the most insight into the performance of these methods, a study with human involvement is imperative.
+
+First, all the analysis was done in-silico; I evaluated both the data set generation and feedback framework using computer simulation.
+I simulated the evaluation data set to get a large enough set of fully ``observed'' reports with ground truth values.
+I simulated radiologists who provide noise-free observations upon request.
+Simulated reports and radiologist observations reduced noise stemming from human error in observations.
+Studies of inter-reader variability of observations when interpreting the same image show that this error is pervasive \cite{Boyer:2012gk}.
+Reducing this noise gives me the most insight into the performance of these methods, but further with human readers is imperative.
+
 Another limitation is in limiting the selection criteria to myopic methods.
-They significantly reduce computational time, allowing for real-time results, but their greedy search nature is not optimal \cite{Nemhauser:1978ck}.
-Furthermore, myopic selection can select very unrelated descriptors in sequence.
+Myopic selection criteria searches for a single next descriptor without taking into the effect of a joint group of descriptors.
+They significantly reduce computational time, allowing for real-time results, but the nature of this greedy search is not optimal \cite{Nemhauser:1978ck}.
+That being said, incorporating stop criteria that is not myopic -- both entropy and incompleteness use the distribution of \emph{all} missing descriptors -- mitigates some of these issues by forcing the selection criteria to select multiple descriptors in sequence even if no single missing descriptor has a strong impact on diagnosis.
+Another issue with myopic selection is that it can select sequences of unrelated descriptors that deviate from the traditional human workflow.
 This was a shortcoming of the pathfinder system in which the evidence elicited from the pathologist would not follow human reporting patterns \cite{Heckerman:1992ud}.
+A way to merge human practice patterns with computer selection criteria is to create sets of related descriptors that must be requested together.
+These ``meta-descriptors'' can then be treated as normal descriptors in selection criteria without major changes to the feedback system described in this work.
+
 Finally, the accuracy measures shown are strongly driven by non-malignant cases, either false positives or true negatives.
 This is due to the low prevalence of cancer in mammography screening.
 I chose not to oversample malignant cases since the decision support system encodes the distribution of malignant and benign reports, but this has the effect of not weighing evidence from malignant reports enough.
